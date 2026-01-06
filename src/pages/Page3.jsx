@@ -1,0 +1,201 @@
+import { useState } from 'react';
+import A4Paper from '../components/A4Paper';
+import PageHeader from '../components/PageHeader';
+import UniversalTable from '../components/UniversalTable';
+import CheckedByDate from '../components/CheckedByDate';
+
+/**
+ * Page3 Component
+ * หน้าที่ 3: 3. ROLLING, PITCHING X,Y CHECK (P-Type Only)
+ */
+function Page3() {
+    const [measurements, setMeasurements] = useState({});
+    const [approvals, setApprovals] = useState({});
+
+    const handleMeasurementChange = (id, value) => {
+        setMeasurements(prev => ({ ...prev, [id]: value }));
+    };
+
+    const handleApprovalChange = (id, value) => {
+        setApprovals(prev => ({ ...prev, [id]: value }));
+    };
+
+    return (
+        <A4Paper>
+            <PageHeader
+                documentNo="FAWB0005"
+                releaseNo="7"
+                controlBy="Assembly Division"
+                title="CHECK SHEET"
+                subtitle="ASSEMBLY"
+                company="Sodick (Thailand) Co.,Ltd"
+                page="3 OF 22"
+                date="22-Dec-25"
+                model="AL400G"
+                group="BODY ASS'Y"
+            />
+
+            <div className="p-2 text-xs">
+                {/* Section Title */}
+                <h2 className="font-bold text-sm mb-4">3.ROLLING , PITCHING X,Y CHECK (P-Type Only)</h2>
+
+                <div className="flex justify-center mb-4">
+                    {/* Diagram Image */}
+                    <img
+                        src="../public/images/page3-image.jpg"
+                        alt="Leveling Check Diagram Y"
+                        className="w-100 h-auto"
+                    />
+                </div>
+
+                {/* Level No. and Y Table */}
+                <div className="flex gap-4 mb-4">
+                    {/* Level No. */}
+                    <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-4">
+                            <span className="font-medium">LEVEL NO.</span>
+                            <input
+                                type="text"
+                                className="border-b border-black w-32 bg-transparent outline-none"
+                                value={measurements['level_no'] || ''}
+                                onChange={(e) => handleMeasurementChange('level_no', e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Y Table */}
+                    <div className="flex-1">
+                        <UniversalTable
+                            headerRows={[
+                                [
+                                    { label: 'Y', colSpan: 5 }
+                                ],
+                                [
+                                    { label: 'P', rowSpan: 2, width: '35px' },
+                                    { label: 'R', rowSpan: 2, width: '35px' },
+                                    { label: 'STD', colSpan: 2 },
+                                    { label: 'No.', rowSpan: 2, width: '35px', className: 'bg-gray-400' }
+                                ],
+                                [
+                                    { label: 'P', width: '35px' },
+                                    { label: 'R', width: '35px' }
+                                ]
+                            ]}
+                            rows={[
+                                {
+                                    cells: [
+                                        { type: 'input', id: 'y_p_1', standard: '∞' },
+                                        { type: 'input', id: 'y_r_1', standard: '∞' },
+                                        { content: '5 ↑' },
+                                        { content: '5' },
+                                        { content: '3', className: 'bg-gray-400 font-bold' }
+                                    ]
+                                },
+                                {
+                                    cells: [
+                                        { type: 'input', id: 'y_p_2', standard: '∞' },
+                                        { type: 'input', id: 'y_r_2', standard: '∞' },
+                                        { content: '0' },
+                                        { content: '0' },
+                                        { content: '2', className: 'bg-gray-400 font-bold' }
+                                    ]
+                                },
+                                {
+                                    cells: [
+                                        { type: 'input', id: 'y_p_3', standard: '∞' },
+                                        { type: 'input', id: 'y_r_3', standard: '∞' },
+                                        { content: '5 ↓' },
+                                        { content: '5' },
+                                        { content: '1', className: 'bg-gray-400 font-bold' }
+                                    ]
+                                }
+                            ]}
+                            measurements={measurements}
+                            onMeasurementChange={handleMeasurementChange}
+                            approvals={approvals}
+                            onApprovalChange={handleApprovalChange}
+                        />
+
+                        {/* Legend */}
+                        <div className="mt-2 text-xs">
+                            <div>P = Pitching</div>
+                            <div>R = Rolling</div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* X Table and Checked By */}
+                <div className="flex gap-4 items-start">
+                    {/* X Table */}
+                    <div>
+                        <UniversalTable
+                            headerRows={[
+                                [
+                                    { label: '', rowSpan: 2, width: '30px' },
+                                    { label: '', rowSpan: 2, width: '30px' },
+                                    { label: 'No.', width: '35px' },
+                                    { label: '1', width: '45px' },
+                                    { label: '2', width: '45px' },
+                                    { label: '3', width: '45px' }
+                                ]
+                            ]}
+                            rows={[
+                                {
+                                    cells: [
+                                        { content: 'X', rowSpan: 4, className: 'font-bold' },
+                                        { content: 'STD', rowSpan: 2, className: 'bg-gray-200' },
+                                        { content: 'P', className: 'bg-gray-200' },
+                                        { content: '5 ↑' },
+                                        { content: '0' },
+                                        { content: '5 ↓' }
+                                    ]
+                                },
+                                {
+                                    cells: [
+                                        { content: 'R', className: 'bg-gray-200' },
+                                        { content: '5 ↑' },
+                                        { content: '0' },
+                                        { content: '5 ↓' }
+                                    ]
+                                },
+                                {
+                                    cells: [
+                                        { content: 'Act.', rowSpan: 2, className: 'bg-gray-200' },
+                                        { content: 'P', className: 'bg-gray-200' },
+                                        { type: 'input', id: 'x_act_p_1', standard: '∞' },
+                                        { content: '0' },
+                                        { type: 'input', id: 'x_act_p_3', standard: '∞' }
+                                    ]
+                                },
+                                {
+                                    cells: [
+                                        { content: 'R', className: 'bg-gray-200' },
+                                        { type: 'input', id: 'x_act_r_1', standard: '∞' },
+                                        { content: '0 ↕' },
+                                        { type: 'input', id: 'x_act_r_3', standard: '∞' }
+                                    ]
+                                }
+                            ]}
+                            measurements={measurements}
+                            onMeasurementChange={handleMeasurementChange}
+                            approvals={approvals}
+                            onApprovalChange={handleApprovalChange}
+                        />
+                    </div>
+
+                    {/* Checked By / Date */}
+                    <div className="ml-auto">
+                        <CheckedByDate
+                            name={measurements['checked_by_name'] || ''}
+                            date={measurements['checked_by_date'] || ''}
+                            onNameChange={(value) => handleMeasurementChange('checked_by_name', value)}
+                            onDateChange={(value) => handleMeasurementChange('checked_by_date', value)}
+                        />
+                    </div>
+                </div>
+            </div>
+        </A4Paper>
+    );
+}
+
+export default Page3;
