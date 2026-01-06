@@ -3,6 +3,9 @@ import A4Paper from '../components/A4Paper';
 import PageHeader from '../components/PageHeader';
 import UniversalTable from '../components/UniversalTable';
 import CheckedByDate from '../components/CheckedByDate';
+import SectionTitle from '../components/SectionTitle';
+import LabeledInput from '../components/LabeledInput';
+import DiagramImage from '../components/DiagramImage';
 
 /**
  * Page1 Component
@@ -37,11 +40,11 @@ function Page1() {
 
             <div className="p-2 text-xs">
                 {/* Section Title */}
-                <h2 className="font-bold text-sm mb-4">1. CHECK DATA LEVEL X,Y AXIS FORM MA DIV.</h2>
+                <SectionTitle level={1}>1. CHECK DATA LEVEL X,Y AXIS FORM MA DIV.</SectionTitle>
 
                 {/* 1.1 LEVELING CHECK (Y) */}
                 <div className="mb-6">
-                    <h3 className="font-bold text-xs mb-2">1.1 LEVELING CHECK ( Y )</h3>
+                    <SectionTitle level={2}>1.1 LEVELING CHECK ( Y )</SectionTitle>
 
                     <div className="flex gap-4">
                         {/* Left: Measurement Table */}
@@ -118,32 +121,28 @@ function Page1() {
 
                         {/* Right: Diagram */}
                         <div className="flex-1 flex flex-col items-center">
-                            <div className="relative">
-                                {/* Diagram Image */}
-                                <img
-                                    src="../public/images/page1-image.jpg"
-                                    alt="Leveling Check Diagram Y"
-                                    className="w-64 h-auto"
-                                />
-                            </div>
+                            <DiagramImage
+                                src="/images/page1-image.jpg"
+                                alt="Leveling Check Diagram Y"
+                                imgClassName="w-64 h-auto"
+                                height="h-auto"
+                            />
 
                             {/* Bottom: BED No. */}
-                            <div className="mt-4 flex items-center gap-2 text-xs">
-                                <span>BED No.</span>
-                                <input
-                                    type="text"
-                                    className="border-b border-black w-24 bg-transparent outline-none"
-                                    value={measurements['bed_no'] || ''}
-                                    onChange={(e) => handleMeasurementChange('bed_no', e.target.value)}
-                                />
-                            </div>
+                            <LabeledInput
+                                label="BED No."
+                                value={measurements['bed_no'] || ''}
+                                onChange={(e) => handleMeasurementChange('bed_no', e.target.value)}
+                                width="w-24"
+                                className="mt-4 text-xs"
+                            />
                         </div>
                     </div>
                 </div>
 
                 {/* 1.2 LEVELING CHECK (X) */}
                 <div className="mb-6">
-                    <h3 className="font-bold text-xs mb-2">1.2 LEVELING CHECK ( X )</h3>
+                    <SectionTitle level={2}>1.2 LEVELING CHECK ( X )</SectionTitle>
 
                     <UniversalTable
                         headerRows={[
@@ -195,15 +194,13 @@ function Page1() {
                 {/* Bottom Section: Level No. and Checked By */}
                 <div className="flex justify-between items-end mt-8">
                     {/* Level No. */}
-                    <div className="flex items-center gap-2">
-                        <span className="font-medium">LEVEL NO.</span>
-                        <input
-                            type="text"
-                            className="border-b border-black w-40 bg-transparent outline-none"
-                            value={measurements['level_no'] || ''}
-                            onChange={(e) => handleMeasurementChange('level_no', e.target.value)}
-                        />
-                    </div>
+                    <LabeledInput
+                        label="LEVEL NO."
+                        value={measurements['level_no'] || ''}
+                        onChange={(e) => handleMeasurementChange('level_no', e.target.value)}
+                        width="w-40"
+                        className="font-medium"
+                    />
 
                     {/* Checked By / Date */}
                     <CheckedByDate

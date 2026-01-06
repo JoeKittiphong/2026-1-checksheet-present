@@ -155,19 +155,19 @@ function Page16() {
                     </div>
                 </div>
                 {/* 19. WORK STAND SQUARE AND PARALLEL CHECK */}
-                <div className="mb-4">
-                    <h3 className="font-bold mb-2 text-sm">19. WORK STAND SQUARE AND PARALLEL CHECK</h3>
-                    <p className="mb-4 text-[10px]">( เช็คขอบ Work stand แต่ละแผ่น ) Std. ≤ 20 µm</p>
+                <div className="mb-2">
+                    <h3 className="font-bold mb-1 text-sm">19. WORK STAND SQUARE AND PARALLEL CHECK</h3>
+                    <p className="mb-2 text-[10px]">( เช็คขอบ Work stand แต่ละแผ่น ) Std. ≤ 20 µm</p>
 
-                    <div className="w-64 h-48 flex items-center justify-center mb-6">
+                    <div className="w-64 h-36 flex items-center justify-center mb-2">
                         <img
-                            src="../public/images/page16-image1.jpg" // Placeholder
+                            src="/images/page16-image1.jpg" // Placeholder
                             alt="Work Stand Square Check Diagram"
                             className="max-w-full max-h-full"
                         />
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-1">
                         {[
                             { label: 'A. PARALLEL CHECK REFER Y - AXIS', id: 'sq_a' },
                             { label: 'B. PARALLEL CHECK REFER X - AXIS', id: 'sq_b' },
@@ -190,15 +190,17 @@ function Page16() {
                 </div>
 
                 {/* Footer */}
-                <div className="flex justify-end mt-8">
-                    <div className="w-48">
-                        <CheckedByDate
-                            name={measurements['checked_by_name'] || ''}
-                            date={measurements['checked_by_date'] || ''}
-                            onNameChange={(value) => handleMeasurementChange('checked_by_name', value)}
-                            onDateChange={(value) => handleMeasurementChange('checked_by_date', value)}
-                        />
-                    </div>
+                <div className="flex justify-end mt-2">
+                    <CheckedByDate
+                        title="CHECK BY / DATE"
+                        width="w-32"
+                        height="h-18"
+                        name={measurements['checked_by_name'] || ''}
+                        date={measurements['checked_by_date'] || ''}
+                        onNameChange={(value) => handleMeasurementChange('checked_by_name', value)}
+                        onDateChange={(value) => handleMeasurementChange('checked_by_date', value)}
+                        compact={true}
+                    />
                 </div>
 
             </div>

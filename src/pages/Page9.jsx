@@ -43,7 +43,7 @@ function Page9() {
                 {/* Diagram */}
                 <div className="flex justify-center mb-2">
                     <img
-                        src="../public/images/page9-image1.jpg"
+                        src="/images/page9-image1.jpg"
                         alt="Linear Scale Diagram"
                         className="w-140 h-auto"
                     />
@@ -173,7 +173,7 @@ function Page9() {
                     {/* Diagram */}
                     <div className="flex-shrink-0">
                         <img
-                            src="../public/images/page9-image2.jpg"
+                            src="/images/page9-image2.jpg"
                             alt="Side Ceramic Base"
                             className="w-80 h-auto"
                         />

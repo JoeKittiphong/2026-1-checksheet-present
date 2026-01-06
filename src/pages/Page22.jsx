@@ -136,7 +136,7 @@ function Page22() {
                     {/* Image/Diagram */}
                     <div className="mt-4 border border-gray-300 p-2 flex justify-center bg-gray-50 h-56">
                         <img
-                            src="../public/images/page22-image1.jpg" // Placeholder
+                            src="/images/page22-image1.jpg" // Placeholder
                             alt="Body Group Option Tag Diagram"
                             className="max-h-full max-w-full"
                         />
@@ -144,63 +144,84 @@ function Page22() {
                 </div>
 
                 {/* Footer Signatures */}
-                <div className="flex border border-black mt-4 h-32">
+                <div className="flex justify-end border border-black mt-4 h-30">
                     <div className="w-[40%]"></div> {/* Spacer */}
 
                     {/* Check by /Date Operator */}
-                    <div className="w-[20%] border-l border-black flex flex-col">
-                        <div className="border-b border-black text-center py-1 font-bold text-xs bg-gray-100">
+                    <div className="w-30 border-l border-black flex flex-col">
+                        <div className="border-b border-black text-center py-0.5 font-bold text-[9px] bg-gray-100 leading-tight">
                             Check by /Date<br />Operator
                         </div>
-                        <div className="flex-1">
-                            <CheckedByDate
-                                title=""
-                                width="w-full"
-                                height="h-full"
-                                name={measurements['check_operator_name'] || ''}
-                                date={measurements['check_operator_date'] || ''}
-                                onNameChange={(value) => handleMeasurementChange('check_operator_name', value)}
-                                onDateChange={(value) => handleMeasurementChange('check_operator_date', value)}
-                                hideLabel={true}
-                            />
+                        <div className="flex-1 bg-yellow-300 flex flex-col">
+                            <div className="flex-[7] border-b border-black border-dashed">
+                                <input
+                                    type="text"
+                                    className="w-full h-full bg-transparent text-center outline-none text-xs"
+                                    value={measurements['check_operator_name'] || ''}
+                                    onChange={(e) => handleMeasurementChange('check_operator_name', e.target.value)}
+                                />
+                            </div>
+                            <div className="flex-[3]">
+                                <input
+                                    type="text"
+                                    className="w-full h-full bg-transparent text-center outline-none text-[9px]"
+                                    placeholder="DD/MM/YY"
+                                    value={measurements['check_operator_date'] || ''}
+                                    onChange={(e) => handleMeasurementChange('check_operator_date', e.target.value)}
+                                />
+                            </div>
                         </div>
                     </div>
 
                     {/* Approved by /Date Leader */}
-                    <div className="w-[20%] border-l border-black flex flex-col">
-                        <div className="border-b border-black text-center py-1 font-bold text-xs bg-gray-100">
+                    <div className="w-30 border-l border-black flex flex-col">
+                        <div className="border-b border-black text-center py-0.5 font-bold text-[9px] bg-gray-100 leading-tight">
                             Approved by /Date<br />Leader
                         </div>
-                        <div className="flex-1">
-                            <CheckedByDate
-                                title=""
-                                width="w-full"
-                                height="h-full"
-                                name={measurements['approved_leader_name'] || ''}
-                                date={measurements['approved_leader_date'] || ''}
-                                onNameChange={(value) => handleMeasurementChange('approved_leader_name', value)}
-                                onDateChange={(value) => handleMeasurementChange('approved_leader_date', value)}
-                                hideLabel={true}
-                            />
+                        <div className="flex-1 bg-yellow-300 flex flex-col">
+                            <div className="flex-[7] border-b border-black border-dashed">
+                                <input
+                                    type="text"
+                                    className="w-full h-full bg-transparent text-center outline-none text-xs"
+                                    value={measurements['approved_leader_name'] || ''}
+                                    onChange={(e) => handleMeasurementChange('approved_leader_name', e.target.value)}
+                                />
+                            </div>
+                            <div className="flex-[3]">
+                                <input
+                                    type="text"
+                                    className="w-full h-full bg-transparent text-center outline-none text-[9px]"
+                                    placeholder="DD/MM/YY"
+                                    value={measurements['approved_leader_date'] || ''}
+                                    onChange={(e) => handleMeasurementChange('approved_leader_date', e.target.value)}
+                                />
+                            </div>
                         </div>
                     </div>
 
                     {/* Approved by /Date Ass't chief Up */}
-                    <div className="w-[20%] border-l border-black flex flex-col">
-                        <div className="border-b border-black text-center py-1 font-bold text-xs bg-gray-100">
+                    <div className="w-30 border-l border-black flex flex-col">
+                        <div className="border-b border-black text-center py-0.5 font-bold text-[9px] bg-gray-100 leading-tight">
                             Approved by /Date<br />Ass't chief Up
                         </div>
-                        <div className="flex-1">
-                            <CheckedByDate
-                                title=""
-                                width="w-full"
-                                height="h-full"
-                                name={measurements['approved_chief_name'] || ''}
-                                date={measurements['approved_chief_date'] || ''}
-                                onNameChange={(value) => handleMeasurementChange('approved_chief_name', value)}
-                                onDateChange={(value) => handleMeasurementChange('approved_chief_date', value)}
-                                hideLabel={true}
-                            />
+                        <div className="flex-1 bg-yellow-300 flex flex-col">
+                            <div className="flex-[7] border-b border-black border-dashed">
+                                <input
+                                    type="text"
+                                    className="w-full h-full bg-transparent text-center outline-none text-xs"
+                                    value={measurements['approved_chief_name'] || ''}
+                                    onChange={(e) => handleMeasurementChange('approved_chief_name', e.target.value)}
+                                />
+                            </div>
+                            <div className="flex-[3]">
+                                <input
+                                    type="text"
+                                    className="w-full h-full bg-transparent text-center outline-none text-[9px]"
+                                    placeholder="DD/MM/YY"
+                                    value={measurements['approved_chief_date'] || ''}
+                                    onChange={(e) => handleMeasurementChange('approved_chief_date', e.target.value)}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

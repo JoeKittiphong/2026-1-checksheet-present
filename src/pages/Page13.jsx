@@ -59,7 +59,7 @@ function Page13() {
                     <div className="w-full flex justify-center">
                         <div className="w-48 h-32 flex items-center justify-center">
                             <img
-                                src="../public/images/page10-image3.jpg" // Placeholder
+                                src="/images/page10-image3.jpg" // Placeholder
                                 alt="Data Shim V Diagram"
                                 className="max-w-full max-h-full"
                             />
@@ -149,7 +149,7 @@ function Page13() {
                                 <div className="relative w-48 h-32 mx-auto">
                                     <div className="absolute inset-0 flex items-center justify-center">
                                         <img
-                                            src="../public/images/page13-image2.jpg" // Placeholder
+                                            src="/images/page13-image2.jpg" // Placeholder
                                             alt="Data Spacer U"
                                             className="max-h-full max-w-full"
                                         />
@@ -279,7 +279,7 @@ function Page13() {
                             <div className=" p-2 h-32 flex items-center justify-center mb-2 relative">
                                 <p className="absolute top-0 left-0 text-[8px] p-1">*จุดสำหรับอ่านค่า Position max และ Backlash จาก กราฟของ Laser</p>
                                 <img
-                                    src="../public/images/page13-image3.jpg" // Placeholder
+                                    src="/images/page13-image3.jpg" // Placeholder
                                     alt="Laser Graph Explanation"
                                     className="max-h-full max-w-full"
                                 />

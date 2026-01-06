@@ -2,6 +2,10 @@ import { useState } from 'react';
 import A4Paper from '../components/A4Paper';
 import PageHeader from '../components/PageHeader';
 import CheckedByDate from '../components/CheckedByDate';
+import SectionTitle from '../components/SectionTitle';
+import DiagramImage from '../components/DiagramImage';
+import StdMeasurementBox from '../components/StdMeasurementBox';
+import LabeledInput from '../components/LabeledInput';
 
 /**
  * Page20 Component
@@ -42,9 +46,9 @@ function Page20() {
                         22.ตรวจสอบตำแหน่งของสายลมบริเวณ BRAKE ของแกน X,Y,U,V ให้ทำเครื่องหมาย <span className="inline-block border border-black w-4 h-4 text-center leading-3">✓</span> เมื่อตรวจสอบแล้วพบว่าถูกต้องสมบูรณ์
                     </div>
 
-                    <div className="relative w-full h-[350px] border border-gray-300 bg-gray-50 mb-2">
+                    <div className="relative w-full h-[320px] border border-gray-300 bg-gray-50 mb-2">
                         <img
-                            src="../public/images/page20-image1.jpg"
+                            src="/images/page20-image1.jpg"
                             alt="Brake Air Hose Check Diagram"
                             className="w-full h-full object-contain opacity-70"
                         />
@@ -107,93 +111,82 @@ function Page20() {
 
                 {/* 23. Check Parallelism Seal frame */}
                 <div className="mb-8">
-                    <div className="font-bold mb-4 text-sm">23.ตรวจสอบความขนานของ Seal frame ก่อนทำการ Lock Process tank.</div>
+                    <SectionTitle level={1}>23.ตรวจสอบความขนานของ Seal frame ก่อนทำการ Lock Process tank.</SectionTitle>
 
                     {/* Measurement Boxes */}
                     <div className="flex gap-12 justify-center mb-4 relative z-10">
-                        {/* Box 1 */}
-                        <div className="border border-black p-2 text-center w-40 bg-white">
-                            <div className="mb-2">Std. Max 20 µm.</div>
-                            <div className="flex items-center justify-center gap-1">
-                                <span>=</span>
-                                <input
-                                    className="border-b border-black w-16 text-center outline-none"
-                                    value={measurements['seal_frame_20'] || ''}
-                                    onChange={(e) => handleMeasurementChange('seal_frame_20', e.target.value)}
-                                />
-                                <span>µm.</span>
-                            </div>
-                        </div>
-                        {/* Box 2 */}
-                        <div className="border border-black p-2 text-center w-40 bg-white">
-                            <div className="mb-2">Std. Max 500 µm.</div>
-                            <div className="flex items-center justify-center gap-1">
-                                <span>=</span>
-                                <input
-                                    className="border-b border-black w-16 text-center outline-none"
-                                    value={measurements['seal_frame_500'] || ''}
-                                    onChange={(e) => handleMeasurementChange('seal_frame_500', e.target.value)}
-                                />
-                                <span>µm.</span>
-                            </div>
-                        </div>
+                        <StdMeasurementBox
+                            standardLabel="Std. Max 20 µm."
+                            id="seal_frame_20"
+                            unit="µm."
+                            value={measurements['seal_frame_20'] || ''}
+                            onChange={handleMeasurementChange}
+                        />
+                        <StdMeasurementBox
+                            standardLabel="Std. Max 500 µm."
+                            id="seal_frame_500"
+                            unit="µm."
+                            value={measurements['seal_frame_500'] || ''}
+                            onChange={handleMeasurementChange}
+                        />
                     </div>
 
                     {/* Diagram Seal Frame */}
-                    <div className="w-full h-32 border border-gray-300 bg-gray-50 flex items-center justify-center mt-[-20px] pt-6">
-                        <img
-                            src="../public/images/page20-image2.jpg"
-                            alt="Seal Frame Diagram"
-                            className="max-h-full max-w-full"
-                        />
-                    </div>
+                    <DiagramImage
+                        src="/images/page20-image2.jpg"
+                        alt="Seal Frame Diagram"
+                        height="h-32"
+                        hasBorder={true}
+                        hasBg={true}
+                        containerClassName="mt-[-20px] pt-6"
+                    />
                 </div>
 
                 {/* 23.1 Check Parallelism Bake plate support */}
                 <div className="flex gap-4 items-end">
                     {/* Image Left */}
-                    <div className="w-[45%] h-48 border border-gray-300 bg-gray-50 flex items-center justify-center">
-                        <img
-                            src="../public/images/page20-image3.jpg"
-                            alt="Bake Plate Support Diagram"
-                            className="max-h-full max-w-full"
-                        />
-                    </div>
+                    <DiagramImage
+                        src="/images/page20-image3.jpg"
+                        alt="Bake Plate Support Diagram"
+                        width="w-[45%]"
+                        height="h-48"
+                        hasBorder={true}
+                        hasBg={true}
+                    />
 
                     {/* Inputs Right */}
                     <div className="flex-1 flex flex-col justify-between h-48">
                         <div>
-                            <div className="font-bold mb-6 text-sm">23.1 ตรวจสอบความขนานของ Bake plate support ( Std. Max ≤ 5 µm. )</div>
+                            <SectionTitle level={1}>23.1 ตรวจสอบความขนานของ Bake plate support ( Std. Max ≤ 5 µm. )</SectionTitle>
                             <div className="flex flex-col gap-4 pl-8">
-                                <div className="flex items-center gap-2">
-                                    <span className="w-12">Side =</span>
-                                    <input
-                                        className="border-b border-black w-32 outline-none text-center"
-                                        value={measurements['bake_plate_side'] || ''}
-                                        onChange={(e) => handleMeasurementChange('bake_plate_side', e.target.value)}
-                                    />
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="w-12">Front =</span>
-                                    <input
-                                        className="border-b border-black w-32 outline-none text-center"
-                                        value={measurements['bake_plate_front'] || ''}
-                                        onChange={(e) => handleMeasurementChange('bake_plate_front', e.target.value)}
-                                    />
-                                </div>
+                                <LabeledInput
+                                    label="Side ="
+                                    value={measurements['bake_plate_side'] || ''}
+                                    onChange={(e) => handleMeasurementChange('bake_plate_side', e.target.value)}
+                                    width="w-32"
+                                    inputClassName="text-center"
+                                />
+                                <LabeledInput
+                                    label="Front ="
+                                    value={measurements['bake_plate_front'] || ''}
+                                    onChange={(e) => handleMeasurementChange('bake_plate_front', e.target.value)}
+                                    width="w-32"
+                                    inputClassName="text-center"
+                                />
                             </div>
                         </div>
 
                         {/* Footer */}
-                        <div className="flex justify-end mt-4">
+                        <div className="flex justify-end mt-2">
                             <CheckedByDate
                                 title="CHECK BY / DATE"
-                                width="w-48"
-                                height="h-16"
+                                width="w-32"
+                                height="h-18"
                                 name={measurements['checked_by_name'] || ''}
                                 date={measurements['checked_by_date'] || ''}
                                 onNameChange={(value) => handleMeasurementChange('checked_by_name', value)}
                                 onDateChange={(value) => handleMeasurementChange('checked_by_date', value)}
+                                compact={true}
                             />
                         </div>
                     </div>

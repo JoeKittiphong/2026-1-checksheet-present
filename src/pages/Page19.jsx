@@ -173,26 +173,33 @@ function Page19() {
                 </div>
 
                 {/* Footer Section */}
-                <div className="flex border border-black h-24">
+                <div className="flex border border-black h-20">
                     <div className="flex-1 p-2 text-[10px]">
                         <p>**ถ้ามีการเปลี่ยนแปลง ITEM NO.หรือข้อมูลอื่นๆ ของ PART</p>
                         <p className="pl-2">ให้กรอกข้อมูลของ PART ใหม่ลงในบรรทัดที่ว่างแทน</p>
                     </div>
-                    <div className="w-64 border-l border-black flex flex-col">
-                        <div className="border-b border-black text-center py-1 font-bold text-xs bg-gray-100">
+                    <div className="w-32 border-l border-black flex flex-col">
+                        <div className="border-b border-black text-center py-0.5 font-bold text-[10px] bg-gray-100">
                             CHECK BY / DATE
                         </div>
-                        <div className="flex-1">
-                            <CheckedByDate
-                                title=""
-                                width="w-full"
-                                height="h-full"
-                                name={measurements['checked_by_name'] || ''}
-                                date={measurements['checked_by_date'] || ''}
-                                onNameChange={(value) => handleMeasurementChange('checked_by_name', value)}
-                                onDateChange={(value) => handleMeasurementChange('checked_by_date', value)}
-                                hideLabel={true}
-                            />
+                        <div className="flex-1 bg-yellow-300 flex flex-col">
+                            <div className="flex-[7] border-b border-black border-dashed">
+                                <input
+                                    type="text"
+                                    className="w-full h-full bg-transparent text-center outline-none text-xs"
+                                    value={measurements['checked_by_name'] || ''}
+                                    onChange={(e) => handleMeasurementChange('checked_by_name', e.target.value)}
+                                />
+                            </div>
+                            <div className="flex-[3]">
+                                <input
+                                    type="text"
+                                    className="w-full h-full bg-transparent text-center outline-none text-[10px]"
+                                    placeholder="DD/MM/YY"
+                                    value={measurements['checked_by_date'] || ''}
+                                    onChange={(e) => handleMeasurementChange('checked_by_date', e.target.value)}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

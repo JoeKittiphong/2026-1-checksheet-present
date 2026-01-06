@@ -2,6 +2,9 @@ import { useState } from 'react';
 import A4Paper from '../components/A4Paper';
 import PageHeader from '../components/PageHeader';
 import CheckedByDate from '../components/CheckedByDate';
+import SectionTitle from '../components/SectionTitle';
+import DiagramImage from '../components/DiagramImage';
+import TorqueCheckTable from '../components/TorqueCheckTable';
 
 /**
  * Page18 Component
@@ -68,77 +71,36 @@ function Page18() {
             />
 
             <div className="p-4 text-xs">
-                <h3 className="font-bold mb-4 text-sm">20. TORQUE CHECK (2/2)</h3>
+                <SectionTitle level={2}>20. TORQUE CHECK (2/2)</SectionTitle>
 
-                {/* Diagram Placeholder */}
-                <div className="w-full h-80 border border-gray-300 flex items-center justify-center mb-6 bg-gray-50">
-                    <img
-                        src="../public/images/page18-image1.jpg" // Placeholder
-                        alt="Torque Check Diagram 2"
-                        className="max-h-full max-w-full"
-                    />
-                </div>
+                {/* Diagram */}
+                <DiagramImage
+                    src="/images/page18-image1.jpg"
+                    alt="Torque Check Diagram 2"
+                    height="h-80"
+                    hasBorder={true}
+                    hasBg={true}
+                    containerClassName="mb-6"
+                />
 
                 {/* Table */}
-                <div className="border border-black">
-                    <table className="w-full border-collapse text-center">
-                        <thead>
-                            <tr className="bg-gray-100 font-bold border-b border-black">
-                                <th className="border-r border-black py-2 w-[40px]">NO.</th>
-                                <th className="border-r border-black py-2">PART NAME</th>
-                                <th className="border-r border-black py-2">POINT CHECK</th>
-                                <th className="border-r border-black py-2 w-[50px]">QTY.</th>
-                                <th className="border-r border-black py-2 w-[100px] text-[10px]">TORQUE(Kgf.cm)</th>
-                                <th className="border-r border-black py-2">ACTION BY</th>
-                                <th className="py-2">DOUBLE CHECK</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {tableData.map((row) => (
-                                row.points.map((point, pIndex) => (
-                                    <tr key={point.id} className="border-b border-black hover:bg-gray-50 h-8">
-                                        {pIndex === 0 && (
-                                            <>
-                                                <td rowSpan={row.points.length} className="border-r border-black align-middle">{row.no}</td>
-                                                <td rowSpan={row.points.length} className="border-r border-black align-middle">{row.part}</td>
-                                            </>
-                                        )}
-                                        <td className="border-r border-black align-middle px-2 text-left">{point.name}</td>
-                                        <td className="border-r border-black align-middle">{point.qty}</td>
-                                        <td className="border-r border-black align-middle">{point.torque}</td>
-                                        <td className="border-r border-black p-0">
-                                            <input
-                                                type="text"
-                                                className="w-full h-full text-center bg-transparent outline-none"
-                                                value={measurements[`action_by_${point.id}`] || ''}
-                                                onChange={(e) => handleMeasurementChange(`action_by_${point.id}`, e.target.value)}
-                                            />
-                                        </td>
-                                        <td className="p-0">
-                                            <input
-                                                type="text"
-                                                className="w-full h-full text-center bg-transparent outline-none"
-                                                value={measurements[`double_check_${point.id}`] || ''}
-                                                onChange={(e) => handleMeasurementChange(`double_check_${point.id}`, e.target.value)}
-                                            />
-                                        </td>
-                                    </tr>
-                                ))
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                <TorqueCheckTable
+                    data={tableData}
+                    measurements={measurements}
+                    onMeasurementChange={handleMeasurementChange}
+                />
 
                 {/* Footer */}
-                <div className="flex justify-end mt-8">
+                <div className="flex justify-end mt-4">
                     <CheckedByDate
                         title="CHECK BY / DATE"
-                        width="w-48"
-                        height="h-16"
+                        width="w-32"
+                        height="h-18"
                         name={measurements['checked_by_name'] || ''}
                         date={measurements['checked_by_date'] || ''}
                         onNameChange={(value) => handleMeasurementChange('checked_by_name', value)}
                         onDateChange={(value) => handleMeasurementChange('checked_by_date', value)}
+                        compact={true}
                     />
                 </div>
             </div>

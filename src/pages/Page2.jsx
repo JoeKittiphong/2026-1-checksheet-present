@@ -137,7 +137,7 @@ function Page2() {
                             <div className="relative">
                                 {/* Diagram Image */}
                                 <img
-                                    src="../public/images/page1-image.jpg"
+                                    src="/images/page1-image.jpg"
                                     alt="Leveling Check Diagram Y"
                                     className="w-64 h-auto"
                                 />

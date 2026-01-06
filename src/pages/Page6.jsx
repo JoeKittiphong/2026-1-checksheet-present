@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import A4Paper from '../components/A4Paper';
 import PageHeader from '../components/PageHeader';
-import UniversalTable from '../components/UniversalTable';
 import CheckedByDate from '../components/CheckedByDate';
+import SectionTitle from '../components/SectionTitle';
+import LabeledInput from '../components/LabeledInput';
+import DiagramImage from '../components/DiagramImage';
+import MeasurementInputRow from '../components/MeasurementInputRow';
+import CheckboxWithLabel from '../components/CheckboxWithLabel';
 
 /**
  * Page6 Component
@@ -17,8 +21,8 @@ function Page6() {
         setMeasurements(prev => ({ ...prev, [id]: value }));
     };
 
-    const handleApprovalChange = (id, value) => {
-        setApprovals(prev => ({ ...prev, [id]: value }));
+    const handleCheckboxChange = (id, checked) => {
+        setMeasurements(prev => ({ ...prev, [id]: checked }));
     };
 
     return (
@@ -38,59 +42,56 @@ function Page6() {
 
             <div className="p-2 text-xs">
                 {/* Section 6 Title */}
-                <h2 className="font-bold text-sm mb-2">6.DISTANCE OF LINEAR MOTOR Y &amp; MAGNET PLATE Y</h2>
+                <SectionTitle level={1}>6.DISTANCE OF LINEAR MOTOR Y &amp; MAGNET PLATE Y</SectionTitle>
 
                 {/* Spacer measurements */}
                 <div className="flex gap-8 mb-2">
                     <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                            <span>ความหนาของ spacer Y =</span>
-                            <input
-                                type="text"
-                                className="border-b border-black w-16 bg-transparent outline-none text-center"
-                                value={measurements['spacer_y'] || ''}
-                                onChange={(e) => handleMeasurementChange('spacer_y', e.target.value)}
-                            />
-                            <span>mm</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <span>ความหนาของ spacer =</span>
-                            <input
-                                type="text"
-                                className="border-b border-black w-16 bg-transparent outline-none text-center"
-                                value={measurements['spacer'] || ''}
-                                onChange={(e) => handleMeasurementChange('spacer', e.target.value)}
-                            />
-                            <span>mm</span>
-                        </div>
-                    </div>
-                    {/* Linear coil diagram */}
-                    <div className="flex-1">
-                        <img
-                            src="../public/images/page6-image1.jpg"
-                            alt="Linear coil"
-                            className="w-50 h-auto"
+                        <LabeledInput
+                            label="ความหนาของ spacer Y ="
+                            value={measurements['spacer_y'] || ''}
+                            onChange={(e) => handleMeasurementChange('spacer_y', e.target.value)}
+                            width="w-16"
+                            unit="mm"
+                            inputClassName="text-center"
+                            className="mb-1"
+                        />
+                        <LabeledInput
+                            label="ความหนาของ spacer ="
+                            value={measurements['spacer'] || ''}
+                            onChange={(e) => handleMeasurementChange('spacer', e.target.value)}
+                            width="w-16"
+                            unit="mm"
+                            inputClassName="text-center"
                         />
                     </div>
+                    {/* Linear coil diagram */}
+                    <DiagramImage
+                        src="/images/page6-image1.jpg"
+                        alt="Linear coil"
+                        imgClassName="w-[200px] h-auto"
+                        height="h-auto"
+                        containerClassName="flex-1"
+                    />
                 </div>
 
                 {/* Section 7 Title */}
-                <h2 className="font-bold text-sm mb-2">7. MAGNET CHECK OF X,Y AXIS.</h2>
+                <SectionTitle level={1}>7. MAGNET CHECK OF X,Y AXIS.</SectionTitle>
 
                 {/* 7.1 */}
                 <div className="mb-2">
-                    <p className="font-bold text-xs">7.1 CHECK POSITION OF MAGNET PLATE OF X,Y AXIS. ( เช็คทิศทางการประกอบ Magnet plate )</p>
+                    <SectionTitle level={2}>7.1 CHECK POSITION OF MAGNET PLATE OF X,Y AXIS. ( เช็คทิศทางการประกอบ Magnet plate )</SectionTitle>
                     <p className="text-[10px] mt-1">* กำหนดให้ทิศทางการประกอบ Magnet plate ต้องดันไปด้านที่มีจุดมาร์ค หรือ ทิศทางเดียวกันกับหางไฟของ Linear coil</p>
                 </div>
 
                 {/* Push diagram */}
-                <div className="flex justify-center mb-2">
-                    <img
-                        src="../public/images/page6-image2.jpg"
-                        alt="Push direction"
-                        className="w-120 h-auto"
-                    />
-                </div>
+                <DiagramImage
+                    src="/images/page6-image2.jpg"
+                    alt="Push direction"
+                    imgClassName="w-[480px] h-auto"
+                    height="h-auto"
+                    containerClassName="mb-2"
+                />
 
                 <p className="text-[10px] mb-2">เมื่อทำการดัน Magnet plate ไปยังด้านที่มีจุดมาร์ค ทิศทางเดียวกันกับหางไฟของ Linear coil แล้ว ✓ ลงไป ☐ ให้นิยมร้อย</p>
 
@@ -113,7 +114,7 @@ function Page6() {
                                     type="checkbox"
                                     className="w-4 h-4"
                                     checked={measurements['magnet_y_check'] || false}
-                                    onChange={(e) => handleMeasurementChange('magnet_y_check', e.target.checked)}
+                                    onChange={(e) => handleCheckboxChange('magnet_y_check', e.target.checked)}
                                 />
                             </td>
                             <td className="border border-black px-2 py-2 text-left align-middle text-[10px]">
@@ -121,7 +122,7 @@ function Page6() {
                             </td>
                             <td className="border border-black p-1 text-center">
                                 <img
-                                    src="../public/images/page6-image3.jpg"
+                                    src="/images/page6-image3.jpg"
                                     alt="Push Y"
                                     className="w-16 h-auto mx-auto"
                                 />
@@ -129,7 +130,7 @@ function Page6() {
                             <td className="border border-black p-1 text-center">
                                 <div className="text-[10px] mb-1">Y Axis</div>
                                 <img
-                                    src="../public/images/page6-image5.jpg"
+                                    src="/images/page6-image5.jpg"
                                     alt="Y Axis"
                                     className="w-20 h-auto mx-auto"
                                 />
@@ -143,7 +144,7 @@ function Page6() {
                                     type="checkbox"
                                     className="w-4 h-4"
                                     checked={measurements['magnet_x_check'] || false}
-                                    onChange={(e) => handleMeasurementChange('magnet_x_check', e.target.checked)}
+                                    onChange={(e) => handleCheckboxChange('magnet_x_check', e.target.checked)}
                                 />
                             </td>
                             <td className="border border-black px-2 py-2 text-left align-middle text-[10px]">
@@ -151,18 +152,13 @@ function Page6() {
                             </td>
                             <td className="border border-black p-1 text-center">
                                 <img
-                                    src="../public/images/page6-image4.jpg"
+                                    src="/images/page6-image4.jpg"
                                     alt="Push X"
                                     className="w-16 h-auto mx-auto"
                                 />
                             </td>
                             <td className="border border-black p-1 text-center">
                                 <div className="text-[10px] mb-1">X Axis</div>
-                                {/* <img
-                                    src="../public/images/page6-image5.jpg"
-                                    alt="X Axis"
-                                    className="w-20 h-auto mx-auto"
-                                /> */}
                             </td>
                         </tr>
                     </tbody>
@@ -170,20 +166,20 @@ function Page6() {
 
                 {/* 7.2 */}
                 <div className="mb-2">
-                    <p className="font-bold text-xs">7.2 CHECK THE GAP BETWEEN " COIL OF LINEAR COIL AND MAGNET " IS WHITHIN</p>
+                    <SectionTitle level={2}>7.2 CHECK THE GAP BETWEEN " COIL OF LINEAR COIL AND MAGNET " IS WHITHIN</SectionTitle>
                     <p className="text-[10px]">(เช็คระยะห่างระหว่าง Magnet Plate กับ Linear coil )</p>
                 </div>
 
                 {/* Gap measurements */}
                 <div className="flex gap-4 mb-4">
                     {/* Left: Diagram */}
-                    <div className="flex-shrink-0">
-                        <img
-                            src="../public/images/page6-image6.jpg"
-                            alt="Gap measurement diagram"
-                            className="w-50 h-auto"
-                        />
-                    </div>
+                    <DiagramImage
+                        src="/images/page6-image6.jpg"
+                        alt="Gap measurement diagram"
+                        imgClassName="w-[200px] h-auto"
+                        height="h-auto"
+                        containerClassName="flex-shrink-0"
+                    />
 
                     {/* Right: Measurements table */}
                     <div className="flex-1">
@@ -195,58 +191,38 @@ function Page6() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td className="border border-black px-2 py-1">
-                                        <span>ระยะห่าง magnet กับ coil แกน X =</span>
-                                        <input
-                                            type="text"
-                                            className="border-b border-black w-12 bg-transparent outline-none text-center mx-1"
-                                            value={measurements['gap_x'] || ''}
-                                            onChange={(e) => handleMeasurementChange('gap_x', e.target.value)}
-                                        />
-                                        <span>mm</span>
-                                    </td>
-                                    <td className="border border-black px-2 py-1 text-center">0.6 - 0.8 mm</td>
-                                </tr>
-                                <tr>
-                                    <td className="border border-black px-2 py-1">
-                                        <span>ระยะห่าง magnet กับ coil แกน Y =</span>
-                                        <input
-                                            type="text"
-                                            className="border-b border-black w-12 bg-transparent outline-none text-center mx-1"
-                                            value={measurements['gap_y'] || ''}
-                                            onChange={(e) => handleMeasurementChange('gap_y', e.target.value)}
-                                        />
-                                        <span>mm</span>
-                                    </td>
-                                    <td className="border border-black px-2 py-1 text-center">0.6 - 0.8 mm</td>
-                                </tr>
-                                <tr>
-                                    <td className="border border-black px-2 py-1">
-                                        <span>ระยะห่าง magnet กับ coil แกน U =</span>
-                                        <input
-                                            type="text"
-                                            className="border-b border-black w-12 bg-transparent outline-none text-center mx-1"
-                                            value={measurements['gap_u'] || ''}
-                                            onChange={(e) => handleMeasurementChange('gap_u', e.target.value)}
-                                        />
-                                        <span>mm</span>
-                                    </td>
-                                    <td className="border border-black px-2 py-1 text-center">0.4 - 0.6 mm</td>
-                                </tr>
-                                <tr>
-                                    <td className="border border-black px-2 py-1">
-                                        <span>ระยะห่าง magnet กับ coil แกน V =</span>
-                                        <input
-                                            type="text"
-                                            className="border-b border-black w-12 bg-transparent outline-none text-center mx-1"
-                                            value={measurements['gap_v'] || ''}
-                                            onChange={(e) => handleMeasurementChange('gap_v', e.target.value)}
-                                        />
-                                        <span>mm</span>
-                                    </td>
-                                    <td className="border border-black px-2 py-1 text-center">0.6 - 0.8 mm</td>
-                                </tr>
+                                <MeasurementInputRow
+                                    label="ระยะห่าง magnet กับ coil แกน X"
+                                    id="gap_x"
+                                    unit="mm"
+                                    standard="0.6 - 0.8"
+                                    value={measurements['gap_x'] || ''}
+                                    onChange={(e) => handleMeasurementChange('gap_x', e.target.value)}
+                                />
+                                <MeasurementInputRow
+                                    label="ระยะห่าง magnet กับ coil แกน Y"
+                                    id="gap_y"
+                                    unit="mm"
+                                    standard="0.6 - 0.8"
+                                    value={measurements['gap_y'] || ''}
+                                    onChange={(e) => handleMeasurementChange('gap_y', e.target.value)}
+                                />
+                                <MeasurementInputRow
+                                    label="ระยะห่าง magnet กับ coil แกน U"
+                                    id="gap_u"
+                                    unit="mm"
+                                    standard="0.4 - 0.6"
+                                    value={measurements['gap_u'] || ''}
+                                    onChange={(e) => handleMeasurementChange('gap_u', e.target.value)}
+                                />
+                                <MeasurementInputRow
+                                    label="ระยะห่าง magnet กับ coil แกน V"
+                                    id="gap_v"
+                                    unit="mm"
+                                    standard="0.6 - 0.8"
+                                    value={measurements['gap_v'] || ''}
+                                    onChange={(e) => handleMeasurementChange('gap_v', e.target.value)}
+                                />
                             </tbody>
                         </table>
                     </div>

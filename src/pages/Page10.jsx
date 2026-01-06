@@ -43,7 +43,7 @@ function Page10() {
                         {/* Diagram 1 */}
                         <div className="mb-4">
                             <img
-                                src="../public/images/page10-image1.jpg"
+                                src="/images/page10-image1.jpg"
                                 alt="Ento Check Diagram"
                                 className="w-50 h-auto"
                             />
@@ -52,7 +52,7 @@ function Page10() {
                         {/* Bottom Diagram (Ento) */}
                         <div className="mb-4">
                             <img
-                                src="../public/images/page10-image2.jpg"
+                                src="/images/page10-image2.jpg"
                                 alt="Ento Check Diagram"
                                 className="w-50 h-auto"
                             />
@@ -144,7 +144,7 @@ function Page10() {
                                 {/* Placeholder for 3D Diagram */}
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <img
-                                        src="../public/images/page10-image3.jpg"
+                                        src="/images/page10-image3.jpg"
                                         alt="Data Spacer 3D Diagram"
                                         className="w-50"
                                     />

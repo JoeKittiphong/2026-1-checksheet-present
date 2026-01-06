@@ -3,6 +3,9 @@ import A4Paper from '../components/A4Paper';
 import PageHeader from '../components/PageHeader';
 import UniversalTable from '../components/UniversalTable';
 import CheckedByDate from '../components/CheckedByDate';
+import SectionTitle from '../components/SectionTitle';
+import LabeledInput from '../components/LabeledInput';
+import DiagramImage from '../components/DiagramImage';
 
 /**
  * Page4 Component
@@ -37,11 +40,11 @@ function Page4() {
 
             <div className="p-2 text-xs">
                 {/* Section Title */}
-                <h2 className="font-bold text-sm mb-4">4.CHECK DATA PARALLEL &amp; STRAIGHTNESS X,Y FROM MA DIV.</h2>
+                <SectionTitle level={1}>4.CHECK DATA PARALLEL &amp; STRAIGHTNESS X,Y FROM MA DIV.</SectionTitle>
 
                 {/* 4.1 PARALLEL Y-AXIS */}
                 <div className="mb-4">
-                    <h3 className="font-bold text-xs mb-2">4.1 PARALLEL Y-AXIS (DATA FROM MA) ( μm )</h3>
+                    <SectionTitle level={2}>4.1 PARALLEL Y-AXIS (DATA FROM MA) ( μm )</SectionTitle>
 
                     <div className="flex gap-4">
                         {/* Left: Table */}
@@ -113,43 +116,35 @@ function Page4() {
 
                             {/* DIAL GAUGE NO. and STRAIGHT EDGE NO. */}
                             <div className="mt-4 space-y-2">
-                                <div className="flex items-center gap-2">
-                                    <span>DIAL GAUGE</span>
-                                    <span>NO.</span>
-                                    <input
-                                        type="text"
-                                        className="border-b border-black w-24 bg-transparent outline-none"
-                                        value={measurements['dial_gauge_no_1'] || ''}
-                                        onChange={(e) => handleMeasurementChange('dial_gauge_no_1', e.target.value)}
-                                    />
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <span>STRAIGHT EDGE</span>
-                                    <span>NO.</span>
-                                    <input
-                                        type="text"
-                                        className="border-b border-black w-24 bg-transparent outline-none"
-                                        value={measurements['straight_edge_no_1'] || ''}
-                                        onChange={(e) => handleMeasurementChange('straight_edge_no_1', e.target.value)}
-                                    />
-                                </div>
+                                <LabeledInput
+                                    label="DIAL GAUGE NO."
+                                    value={measurements['dial_gauge_no_1'] || ''}
+                                    onChange={(e) => handleMeasurementChange('dial_gauge_no_1', e.target.value)}
+                                    width="w-24"
+                                />
+                                <LabeledInput
+                                    label="STRAIGHT EDGE NO."
+                                    value={measurements['straight_edge_no_1'] || ''}
+                                    onChange={(e) => handleMeasurementChange('straight_edge_no_1', e.target.value)}
+                                    width="w-24"
+                                />
                             </div>
                         </div>
 
                         {/* Right: Diagram */}
-                        <div className="flex-1 flex justify-center">
-                            <img
-                                src="../public/images/page4-image.jpg"
-                                alt="Parallel Y-Axis Diagram"
-                                className="w-90 h-auto"
-                            />
-                        </div>
+                        <DiagramImage
+                            src="/images/page4-image.jpg"
+                            alt="Parallel Y-Axis Diagram"
+                            imgClassName="w-[360px] h-auto"
+                            height="h-auto"
+                            containerClassName="flex-1"
+                        />
                     </div>
                 </div>
 
                 {/* 4.2 DATA PARALLEL X FROM MA */}
                 <div className="mb-4">
-                    <h3 className="font-bold text-xs mb-2">4.2 DATA PARALLEL X FROM MA</h3>
+                    <SectionTitle level={2}>4.2 DATA PARALLEL X FROM MA</SectionTitle>
 
                     <UniversalTable
                         headerRows={[
@@ -204,24 +199,18 @@ function Page4() {
                 <div className="flex justify-between items-end mt-4">
                     {/* Left: DIAL GAUGE NO. and STRAIGHT EDGE NO. */}
                     <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                            <span>DIAL GAUGE NO.</span>
-                            <input
-                                type="text"
-                                className="border-b border-black w-24 bg-transparent outline-none"
-                                value={measurements['dial_gauge_no_2'] || ''}
-                                onChange={(e) => handleMeasurementChange('dial_gauge_no_2', e.target.value)}
-                            />
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <span>STRAIGHT EDGE NO.</span>
-                            <input
-                                type="text"
-                                className="border-b border-black w-24 bg-transparent outline-none"
-                                value={measurements['straight_edge_no_2'] || ''}
-                                onChange={(e) => handleMeasurementChange('straight_edge_no_2', e.target.value)}
-                            />
-                        </div>
+                        <LabeledInput
+                            label="DIAL GAUGE NO."
+                            value={measurements['dial_gauge_no_2'] || ''}
+                            onChange={(e) => handleMeasurementChange('dial_gauge_no_2', e.target.value)}
+                            width="w-24"
+                        />
+                        <LabeledInput
+                            label="STRAIGHT EDGE NO."
+                            value={measurements['straight_edge_no_2'] || ''}
+                            onChange={(e) => handleMeasurementChange('straight_edge_no_2', e.target.value)}
+                            width="w-24"
+                        />
                     </div>
 
                     {/* Right: Checked By / Date */}

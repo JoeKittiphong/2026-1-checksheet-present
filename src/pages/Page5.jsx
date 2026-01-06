@@ -152,7 +152,7 @@ function Page5() {
                         {/* Right: Diagram */}
                         <div className="flex-1 flex justify-center">
                             <img
-                                src="../public/images/page4-image.jpg"
+                                src="/images/page4-image.jpg"
                                 alt="Parallel Groove Way Diagram"
                                 className="w-90 h-auto"
                             />

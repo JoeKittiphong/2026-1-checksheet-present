@@ -65,11 +65,11 @@ function Page15() {
     );
 
     const axisImages = {
-        'X': '../public/images/page15-image2.jpg',
-        'Y': '../public/images/page15-image3.jpg',
-        'Z': '../public/images/page15-image4.jpg',
-        'U': '../public/images/page15-image5.jpg',
-        'V': '../public/images/page15-image6.jpg',
+        'X': '/images/page15-image2.jpg',
+        'Y': '/images/page15-image3.jpg',
+        'Z': '/images/page15-image4.jpg',
+        'U': '/images/page15-image5.jpg',
+        'V': '/images/page15-image6.jpg',
     };
 
     return (
@@ -101,7 +101,7 @@ function Page15() {
 
                         <div className="w-24 h-24 border border-gray-300 flex items-center justify-center">
                             <img
-                                src="../public/images/page15-image1.jpg" // Placeholder for Ball Screw
+                                src="/images/page15-image1.jpg" // Placeholder for Ball Screw
                                 alt="Ball Screw Setting"
                                 className="max-w-full max-h-full"
                             />

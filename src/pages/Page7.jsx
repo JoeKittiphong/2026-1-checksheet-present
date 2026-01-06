@@ -44,61 +44,61 @@ function Page7() {
                     <div className="flex w-1/3">
                         <p className="font-bold text-[10px] mb-1">8.1 PITCHING - X</p>
                         <img
-                            src="../public/images/page7-image1.jpg"
+                            src="/images/page7-image1.jpg"
                             alt="Pitching X Diagram"
                             className="w-40 h-auto"
                         />
                         <div className="text-center text-[10px] mt-1">MAX<br />20 μm</div>
-                    
-                    <div className="w-2/3">
-                        <UniversalTable
-                            headerRows={[
-                                [
-                                    { label: '', width: '35px' },
-                                    { label: 'X +', width: '45px' },
-                                    { label: 'X0', width: '45px' },
-                                    { label: 'X -', width: '45px' }
-                                ]
-                            ]}
-                            rows={[
-                                {
-                                    cells: [
-                                        { content: 'B', className: 'font-bold' },
-                                        { type: 'input', id: 'p81_b_xp', standard: '∞' },
-                                        { content: '← 0' },
-                                        { type: 'input', id: 'p81_b_xm', standard: '∞' }
+
+                        <div className="w-2/3">
+                            <UniversalTable
+                                headerRows={[
+                                    [
+                                        { label: '', width: '35px' },
+                                        { label: 'X +', width: '45px' },
+                                        { label: 'X0', width: '45px' },
+                                        { label: 'X -', width: '45px' }
                                     ]
-                                },
-                                {
-                                    cells: [
-                                        { content: 'T', className: 'font-bold' },
-                                        { type: 'input', id: 'p81_t_xp', standard: '∞' },
-                                        { content: '→ 0' },
-                                        { type: 'input', id: 'p81_t_xm', standard: '∞' }
-                                    ]
-                                },
-                                {
-                                    cells: [
-                                        { content: 'DIFF', className: 'font-bold' },
-                                        { type: 'input', id: 'p81_diff_xp', standard: '∞' },
-                                        { content: '' },
-                                        { type: 'input', id: 'p81_diff_xm', standard: '∞' }
-                                    ]
-                                }
-                            ]}
-                            measurements={measurements}
-                            onMeasurementChange={handleMeasurementChange}
-                        />
-                        <div className="flex items-center gap-2 mt-1">
-                            <span className="text-[10px]">DATA PITCHING</span>
-                            <input
-                                type="text"
-                                className="border-b border-black w-20 bg-transparent outline-none text-center"
-                                value={measurements['data_pitching_x'] || ''}
-                                onChange={(e) => handleMeasurementChange('data_pitching_x', e.target.value)}
+                                ]}
+                                rows={[
+                                    {
+                                        cells: [
+                                            { content: 'B', className: 'font-bold' },
+                                            { type: 'input', id: 'p81_b_xp', standard: '∞' },
+                                            { content: '← 0' },
+                                            { type: 'input', id: 'p81_b_xm', standard: '∞' }
+                                        ]
+                                    },
+                                    {
+                                        cells: [
+                                            { content: 'T', className: 'font-bold' },
+                                            { type: 'input', id: 'p81_t_xp', standard: '∞' },
+                                            { content: '→ 0' },
+                                            { type: 'input', id: 'p81_t_xm', standard: '∞' }
+                                        ]
+                                    },
+                                    {
+                                        cells: [
+                                            { content: 'DIFF', className: 'font-bold' },
+                                            { type: 'input', id: 'p81_diff_xp', standard: '∞' },
+                                            { content: '' },
+                                            { type: 'input', id: 'p81_diff_xm', standard: '∞' }
+                                        ]
+                                    }
+                                ]}
+                                measurements={measurements}
+                                onMeasurementChange={handleMeasurementChange}
                             />
+                            <div className="flex items-center gap-2 mt-1">
+                                <span className="text-[10px]">DATA PITCHING</span>
+                                <input
+                                    type="text"
+                                    className="border-b border-black w-20 bg-transparent outline-none text-center"
+                                    value={measurements['data_pitching_x'] || ''}
+                                    onChange={(e) => handleMeasurementChange('data_pitching_x', e.target.value)}
+                                />
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
 
@@ -107,61 +107,61 @@ function Page7() {
                     <div className="flex w-1/3">
                         <p className="font-bold text-[10px] mb-1">8.2 ROLLING - X</p>
                         <img
-                            src="../public/images/page7-image2.jpg"
+                            src="/images/page7-image2.jpg"
                             alt="Rolling X Diagram"
                             className="w-full h-auto"
                         />
                         <div className="text-center text-[10px] mt-1">MAX<br />15 μm</div>
-                    
-                    <div className="w-2/3">
-                        <UniversalTable
-                            headerRows={[
-                                [
-                                    { label: '', width: '35px' },
-                                    { label: 'X +', width: '45px' },
-                                    { label: 'X0', width: '45px' },
-                                    { label: 'X -', width: '45px' }
-                                ]
-                            ]}
-                            rows={[
-                                {
-                                    cells: [
-                                        { content: 'B', className: 'font-bold' },
-                                        { type: 'input', id: 'p82_b_xp', standard: '∞' },
-                                        { content: '0 ↕' },
-                                        { type: 'input', id: 'p82_b_xm', standard: '∞' }
+
+                        <div className="w-2/3">
+                            <UniversalTable
+                                headerRows={[
+                                    [
+                                        { label: '', width: '35px' },
+                                        { label: 'X +', width: '45px' },
+                                        { label: 'X0', width: '45px' },
+                                        { label: 'X -', width: '45px' }
                                     ]
-                                },
-                                {
-                                    cells: [
-                                        { content: 'T', className: 'font-bold' },
-                                        { type: 'input', id: 'p82_t_xp', standard: '∞' },
-                                        { content: '0 ↕' },
-                                        { type: 'input', id: 'p82_t_xm', standard: '∞' }
-                                    ]
-                                },
-                                {
-                                    cells: [
-                                        { content: 'DIFF', className: 'font-bold' },
-                                        { type: 'input', id: 'p82_diff_xp', standard: '∞' },
-                                        { content: '' },
-                                        { type: 'input', id: 'p82_diff_xm', standard: '∞' }
-                                    ]
-                                }
-                            ]}
-                            measurements={measurements}
-                            onMeasurementChange={handleMeasurementChange}
-                        />
-                        <div className="flex items-center gap-2 mt-1">
-                            <span className="text-[10px]">DATA ROLLING - X =</span>
-                            <input
-                                type="text"
-                                className="border-b border-black w-20 bg-transparent outline-none text-center"
-                                value={measurements['data_rolling_x'] || ''}
-                                onChange={(e) => handleMeasurementChange('data_rolling_x', e.target.value)}
+                                ]}
+                                rows={[
+                                    {
+                                        cells: [
+                                            { content: 'B', className: 'font-bold' },
+                                            { type: 'input', id: 'p82_b_xp', standard: '∞' },
+                                            { content: '0 ↕' },
+                                            { type: 'input', id: 'p82_b_xm', standard: '∞' }
+                                        ]
+                                    },
+                                    {
+                                        cells: [
+                                            { content: 'T', className: 'font-bold' },
+                                            { type: 'input', id: 'p82_t_xp', standard: '∞' },
+                                            { content: '0 ↕' },
+                                            { type: 'input', id: 'p82_t_xm', standard: '∞' }
+                                        ]
+                                    },
+                                    {
+                                        cells: [
+                                            { content: 'DIFF', className: 'font-bold' },
+                                            { type: 'input', id: 'p82_diff_xp', standard: '∞' },
+                                            { content: '' },
+                                            { type: 'input', id: 'p82_diff_xm', standard: '∞' }
+                                        ]
+                                    }
+                                ]}
+                                measurements={measurements}
+                                onMeasurementChange={handleMeasurementChange}
                             />
+                            <div className="flex items-center gap-2 mt-1">
+                                <span className="text-[10px]">DATA ROLLING - X =</span>
+                                <input
+                                    type="text"
+                                    className="border-b border-black w-20 bg-transparent outline-none text-center"
+                                    value={measurements['data_rolling_x'] || ''}
+                                    onChange={(e) => handleMeasurementChange('data_rolling_x', e.target.value)}
+                                />
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
 
@@ -170,61 +170,61 @@ function Page7() {
                     <div className="flex w-1/3">
                         <p className="font-bold text-[10px] mb-1">8.3 PITCHING - Y</p>
                         <img
-                            src="../public/images/page7-image3.jpg"
+                            src="/images/page7-image3.jpg"
                             alt="Pitching Y Diagram"
                             className="w-full h-auto"
                         />
                         <div className="text-center text-[10px] mt-1">MAX<br />15 μm</div>
-                    
-                    <div className="w-2/3">
-                        <UniversalTable
-                            headerRows={[
-                                [
-                                    { label: '', width: '35px' },
-                                    { label: 'B', width: '45px' },
-                                    { label: 'C', width: '45px' },
-                                    { label: 'DIFF', width: '45px' }
-                                ]
-                            ]}
-                            rows={[
-                                {
-                                    cells: [
-                                        { content: 'Y+', className: 'font-bold' },
-                                        { content: '0 ↕' },
-                                        { content: '0 ↕' },
-                                        { type: 'input', id: 'p83_diff_yp', standard: '∞' }
+
+                        <div className="w-2/3">
+                            <UniversalTable
+                                headerRows={[
+                                    [
+                                        { label: '', width: '35px' },
+                                        { label: 'B', width: '45px' },
+                                        { label: 'C', width: '45px' },
+                                        { label: 'DIFF', width: '45px' }
                                     ]
-                                },
-                                {
-                                    cells: [
-                                        { content: '0', className: 'font-bold' },
-                                        { content: '0' },
-                                        { content: '0' },
-                                        { content: '' }
-                                    ]
-                                },
-                                {
-                                    cells: [
-                                        { content: 'Y-', className: 'font-bold' },
-                                        { type: 'input', id: 'p83_b_ym', standard: '∞' },
-                                        { type: 'input', id: 'p83_c_ym', standard: '∞' },
-                                        { type: 'input', id: 'p83_diff_ym', standard: '∞' }
-                                    ]
-                                }
-                            ]}
-                            measurements={measurements}
-                            onMeasurementChange={handleMeasurementChange}
-                        />
-                        <div className="flex items-center gap-2 mt-1">
-                            <span className="text-[10px]">DATA PITCHING - Y =</span>
-                            <input
-                                type="text"
-                                className="border-b border-black w-20 bg-transparent outline-none text-center"
-                                value={measurements['data_pitching_y'] || ''}
-                                onChange={(e) => handleMeasurementChange('data_pitching_y', e.target.value)}
+                                ]}
+                                rows={[
+                                    {
+                                        cells: [
+                                            { content: 'Y+', className: 'font-bold' },
+                                            { content: '0 ↕' },
+                                            { content: '0 ↕' },
+                                            { type: 'input', id: 'p83_diff_yp', standard: '∞' }
+                                        ]
+                                    },
+                                    {
+                                        cells: [
+                                            { content: '0', className: 'font-bold' },
+                                            { content: '0' },
+                                            { content: '0' },
+                                            { content: '' }
+                                        ]
+                                    },
+                                    {
+                                        cells: [
+                                            { content: 'Y-', className: 'font-bold' },
+                                            { type: 'input', id: 'p83_b_ym', standard: '∞' },
+                                            { type: 'input', id: 'p83_c_ym', standard: '∞' },
+                                            { type: 'input', id: 'p83_diff_ym', standard: '∞' }
+                                        ]
+                                    }
+                                ]}
+                                measurements={measurements}
+                                onMeasurementChange={handleMeasurementChange}
                             />
+                            <div className="flex items-center gap-2 mt-1">
+                                <span className="text-[10px]">DATA PITCHING - Y =</span>
+                                <input
+                                    type="text"
+                                    className="border-b border-black w-20 bg-transparent outline-none text-center"
+                                    value={measurements['data_pitching_y'] || ''}
+                                    onChange={(e) => handleMeasurementChange('data_pitching_y', e.target.value)}
+                                />
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
 
@@ -233,61 +233,61 @@ function Page7() {
                     <div className="flex w-1/3">
                         <p className="font-bold text-[10px] mb-1">8.4 ROLLING - Y</p>
                         <img
-                            src="../public/images/page7-image4.jpg"
+                            src="/images/page7-image4.jpg"
                             alt="Rolling Y Diagram"
                             className="w-full h-auto"
                         />
                         <div className="text-center text-[10px] mt-1">MAX<br />10μm</div>
-                    
-                    <div className="w-2/3">
-                        <UniversalTable
-                            headerRows={[
-                                [
-                                    { label: '', width: '35px' },
-                                    { label: 'B', width: '45px' },
-                                    { label: 'C', width: '45px' },
-                                    { label: 'DIFF', width: '45px' }
-                                ]
-                            ]}
-                            rows={[
-                                {
-                                    cells: [
-                                        { content: 'Y+', className: 'font-bold' },
-                                        { type: 'input', id: 'p84_b_yp', standard: '∞' },
-                                        { type: 'input', id: 'p84_c_yp', standard: '∞' },
-                                        { type: 'input', id: 'p84_diff_yp', standard: '∞' }
+
+                        <div className="w-2/3">
+                            <UniversalTable
+                                headerRows={[
+                                    [
+                                        { label: '', width: '35px' },
+                                        { label: 'B', width: '45px' },
+                                        { label: 'C', width: '45px' },
+                                        { label: 'DIFF', width: '45px' }
                                     ]
-                                },
-                                {
-                                    cells: [
-                                        { content: '0', className: 'font-bold' },
-                                        { content: '0' },
-                                        { content: '0' },
-                                        { content: '' }
-                                    ]
-                                },
-                                {
-                                    cells: [
-                                        { content: 'Y-', className: 'font-bold' },
-                                        { type: 'input', id: 'p84_b_ym', standard: '∞' },
-                                        { type: 'input', id: 'p84_c_ym', standard: '∞' },
-                                        { type: 'input', id: 'p84_diff_ym', standard: '∞' }
-                                    ]
-                                }
-                            ]}
-                            measurements={measurements}
-                            onMeasurementChange={handleMeasurementChange}
-                        />
-                        <div className="flex items-center gap-2 mt-1">
-                            <span className="text-[10px]">DATA ROLLING - Y =</span>
-                            <input
-                                type="text"
-                                className="border-b border-black w-20 bg-transparent outline-none text-center"
-                                value={measurements['data_rolling_y'] || ''}
-                                onChange={(e) => handleMeasurementChange('data_rolling_y', e.target.value)}
+                                ]}
+                                rows={[
+                                    {
+                                        cells: [
+                                            { content: 'Y+', className: 'font-bold' },
+                                            { type: 'input', id: 'p84_b_yp', standard: '∞' },
+                                            { type: 'input', id: 'p84_c_yp', standard: '∞' },
+                                            { type: 'input', id: 'p84_diff_yp', standard: '∞' }
+                                        ]
+                                    },
+                                    {
+                                        cells: [
+                                            { content: '0', className: 'font-bold' },
+                                            { content: '0' },
+                                            { content: '0' },
+                                            { content: '' }
+                                        ]
+                                    },
+                                    {
+                                        cells: [
+                                            { content: 'Y-', className: 'font-bold' },
+                                            { type: 'input', id: 'p84_b_ym', standard: '∞' },
+                                            { type: 'input', id: 'p84_c_ym', standard: '∞' },
+                                            { type: 'input', id: 'p84_diff_ym', standard: '∞' }
+                                        ]
+                                    }
+                                ]}
+                                measurements={measurements}
+                                onMeasurementChange={handleMeasurementChange}
                             />
+                            <div className="flex items-center gap-2 mt-1">
+                                <span className="text-[10px]">DATA ROLLING - Y =</span>
+                                <input
+                                    type="text"
+                                    className="border-b border-black w-20 bg-transparent outline-none text-center"
+                                    value={measurements['data_rolling_y'] || ''}
+                                    onChange={(e) => handleMeasurementChange('data_rolling_y', e.target.value)}
+                                />
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
 
@@ -299,7 +299,7 @@ function Page7() {
                             <p className="text-[9px] mb-1">* ข้อ 8.3,8.4 กำหนดให้ใช้ ระดับน้ำดิจิตอลและใช้ Jig ยึดColumn สำหรับวางระดับน้ำ</p>
                             <div className="flex gap-4">
                                 <img
-                                    src="../public/images/page7-image5.jpg"
+                                    src="/images/page7-image5.jpg"
                                     alt="Jig"
                                     className="w-30 h-auto"
                                 />

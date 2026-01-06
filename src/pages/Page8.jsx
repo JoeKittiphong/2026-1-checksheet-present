@@ -87,7 +87,7 @@ function Page8() {
                     {/* Diagram */}
                     <div className="w-1/3">
                         <img
-                            src="../public/images/page8-image.jpg"
+                            src="/images/page8-image.jpg"
                             alt="Ball Screw Centering"
                             className="w-full h-auto"
                         />

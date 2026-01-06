@@ -42,7 +42,7 @@ function Page12() {
                     <div className="flex gap-4 items-start">
                         <div className="w-40 h-32  flex items-center justify-center bg-gray-50">
                             <img
-                                src="../public/images/page12-image1.jpg"
+                                src="/images/page12-image1.jpg"
                                 alt="Diagram 15.3 Placeholder"
                                 className="max-w-full "
                             />
@@ -122,7 +122,7 @@ function Page12() {
                     <div className="flex gap-4 mb-4">
                         <div className="w-40 h-40 flex items-center justify-center bg-gray-50 shrink-0">
                             <img
-                                src="../public/images/page12-image2.jpg"
+                                src="/images/page12-image2.jpg"
                                 alt="Diagram 15.4 Placeholder"
                                 className="max-w-full"
                             />
