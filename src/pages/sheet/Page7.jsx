@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import A4Paper from '../../components/A4Paper';
 import PageHeader from '../../components/PageHeader';
 import UniversalTable from '../../components/UniversalTable';
@@ -20,6 +20,35 @@ function Page7() {
         setApprovals(prev => ({ ...prev, [id]: value }));
     };
 
+    // คำนวณค่า DIFF อัตโนมัติ (|B - T| หรือ |B - C|)
+    useEffect(() => {
+        const calculateDiff = (id1, id2, diffId) => {
+            const val1 = parseFloat(measurements[id1]);
+            const val2 = parseFloat(measurements[id2]);
+            if (!isNaN(val1) && !isNaN(val2)) {
+                const diff = Math.abs(val1 - val2);
+                if (measurements[diffId] !== diff.toString()) {
+                    setMeasurements(prev => ({ ...prev, [diffId]: diff.toString() }));
+                }
+            }
+        };
+
+        // 8.1 PITCHING-X: DIFF = |B - T|
+        calculateDiff('p81_b_xp', 'p81_t_xp', 'p81_diff_xp');
+        calculateDiff('p81_b_xm', 'p81_t_xm', 'p81_diff_xm');
+
+        // 8.2 ROLLING-X: DIFF = |B - T|
+        calculateDiff('p82_b_xp', 'p82_t_xp', 'p82_diff_xp');
+        calculateDiff('p82_b_xm', 'p82_t_xm', 'p82_diff_xm');
+
+        // 8.3 PITCHING-Y: DIFF = |B - C|
+        calculateDiff('p83_b_ym', 'p83_c_ym', 'p83_diff_ym');
+
+        // 8.4 ROLLING-Y: DIFF = |B - C|
+        calculateDiff('p84_b_yp', 'p84_c_yp', 'p84_diff_yp');
+        calculateDiff('p84_b_ym', 'p84_c_ym', 'p84_diff_ym');
+    }, [measurements]);
+
     return (
         <A4Paper>
             <PageHeader
@@ -39,15 +68,11 @@ function Page7() {
                 {/* Section Title */}
                 <h2 className="font-bold text-sm mb-2">8. LEVELING CHECK</h2>
 
-                {/* 8.1 PITCHING - X */}
+                {/* 8.1 PITCHING - X (MAX 20μm) */}
                 <div className="flex gap-2 mb-3 border-b border-gray-300 pb-2">
                     <div className="flex w-1/3">
                         <p className="font-bold text-[10px] mb-1">8.1 PITCHING - X</p>
-                        <img
-                            src="/images/page7-image1.jpg"
-                            alt="Pitching X Diagram"
-                            className="w-40 h-auto"
-                        />
+                        <img src="/images/page7-image1.jpg" alt="Pitching X Diagram" className="w-40 h-auto" />
                         <div className="text-center text-[10px] mt-1">MAX<br />20 μm</div>
 
                         <div className="w-2/3">
@@ -64,30 +89,32 @@ function Page7() {
                                     {
                                         cells: [
                                             { content: 'B', className: 'font-bold' },
-                                            { type: 'input', id: 'p81_b_xp', standard: '∞' },
+                                            { type: 'input', id: 'p81_b_xp' },
                                             { content: '← 0' },
-                                            { type: 'input', id: 'p81_b_xm', standard: '∞' }
+                                            { type: 'input', id: 'p81_b_xm' }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: 'T', className: 'font-bold' },
-                                            { type: 'input', id: 'p81_t_xp', standard: '∞' },
+                                            { type: 'input', id: 'p81_t_xp' },
                                             { content: '→ 0' },
-                                            { type: 'input', id: 'p81_t_xm', standard: '∞' }
+                                            { type: 'input', id: 'p81_t_xm' }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: 'DIFF', className: 'font-bold' },
-                                            { type: 'input', id: 'p81_diff_xp', standard: '∞' },
+                                            { type: 'display', id: 'p81_diff_xp', min: 0, max: 20 },
                                             { content: '' },
-                                            { type: 'input', id: 'p81_diff_xm', standard: '∞' }
+                                            { type: 'display', id: 'p81_diff_xm', min: 0, max: 20 }
                                         ]
                                     }
                                 ]}
                                 measurements={measurements}
                                 onMeasurementChange={handleMeasurementChange}
+                                approvals={approvals}
+                                onApprovalChange={handleApprovalChange}
                             />
                             <div className="flex items-center gap-2 mt-1">
                                 <span className="text-[10px]">DATA PITCHING</span>
@@ -102,15 +129,11 @@ function Page7() {
                     </div>
                 </div>
 
-                {/* 8.2 ROLLING - X */}
+                {/* 8.2 ROLLING - X (MAX 15μm) */}
                 <div className="flex gap-2 mb-3 border-b border-gray-300 pb-2">
                     <div className="flex w-1/3">
                         <p className="font-bold text-[10px] mb-1">8.2 ROLLING - X</p>
-                        <img
-                            src="/images/page7-image2.jpg"
-                            alt="Rolling X Diagram"
-                            className="w-full h-auto"
-                        />
+                        <img src="/images/page7-image2.jpg" alt="Rolling X Diagram" className="w-full h-auto" />
                         <div className="text-center text-[10px] mt-1">MAX<br />15 μm</div>
 
                         <div className="w-2/3">
@@ -127,30 +150,32 @@ function Page7() {
                                     {
                                         cells: [
                                             { content: 'B', className: 'font-bold' },
-                                            { type: 'input', id: 'p82_b_xp', standard: '∞' },
+                                            { type: 'input', id: 'p82_b_xp' },
                                             { content: '0 ↕' },
-                                            { type: 'input', id: 'p82_b_xm', standard: '∞' }
+                                            { type: 'input', id: 'p82_b_xm' }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: 'T', className: 'font-bold' },
-                                            { type: 'input', id: 'p82_t_xp', standard: '∞' },
+                                            { type: 'input', id: 'p82_t_xp' },
                                             { content: '0 ↕' },
-                                            { type: 'input', id: 'p82_t_xm', standard: '∞' }
+                                            { type: 'input', id: 'p82_t_xm' }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: 'DIFF', className: 'font-bold' },
-                                            { type: 'input', id: 'p82_diff_xp', standard: '∞' },
+                                            { type: 'display', id: 'p82_diff_xp', min: 0, max: 15 },
                                             { content: '' },
-                                            { type: 'input', id: 'p82_diff_xm', standard: '∞' }
+                                            { type: 'display', id: 'p82_diff_xm', min: 0, max: 15 }
                                         ]
                                     }
                                 ]}
                                 measurements={measurements}
                                 onMeasurementChange={handleMeasurementChange}
+                                approvals={approvals}
+                                onApprovalChange={handleApprovalChange}
                             />
                             <div className="flex items-center gap-2 mt-1">
                                 <span className="text-[10px]">DATA ROLLING - X =</span>
@@ -165,15 +190,11 @@ function Page7() {
                     </div>
                 </div>
 
-                {/* 8.3 PITCHING - Y */}
+                {/* 8.3 PITCHING - Y (MAX 15μm) */}
                 <div className="flex gap-2 mb-3 border-b border-gray-300 pb-2">
                     <div className="flex w-1/3">
                         <p className="font-bold text-[10px] mb-1">8.3 PITCHING - Y</p>
-                        <img
-                            src="/images/page7-image3.jpg"
-                            alt="Pitching Y Diagram"
-                            className="w-full h-auto"
-                        />
+                        <img src="/images/page7-image3.jpg" alt="Pitching Y Diagram" className="w-full h-auto" />
                         <div className="text-center text-[10px] mt-1">MAX<br />15 μm</div>
 
                         <div className="w-2/3">
@@ -190,9 +211,9 @@ function Page7() {
                                     {
                                         cells: [
                                             { content: 'Y+', className: 'font-bold' },
-                                            { content: '0 ↕' },
-                                            { content: '0 ↕' },
-                                            { type: 'input', id: 'p83_diff_yp', standard: '∞' }
+                                            { type: 'input', id: 'p83_b_yp' },
+                                            { type: 'input', id: 'p83_c_yp' },
+                                            { type: 'display', id: 'p83_diff_yp', min: 0, max: 15 }
                                         ]
                                     },
                                     {
@@ -206,14 +227,16 @@ function Page7() {
                                     {
                                         cells: [
                                             { content: 'Y-', className: 'font-bold' },
-                                            { type: 'input', id: 'p83_b_ym', standard: '∞' },
-                                            { type: 'input', id: 'p83_c_ym', standard: '∞' },
-                                            { type: 'input', id: 'p83_diff_ym', standard: '∞' }
+                                            { type: 'input', id: 'p83_b_ym' },
+                                            { type: 'input', id: 'p83_c_ym' },
+                                            { type: 'display', id: 'p83_diff_ym', min: 0, max: 15 }
                                         ]
                                     }
                                 ]}
                                 measurements={measurements}
                                 onMeasurementChange={handleMeasurementChange}
+                                approvals={approvals}
+                                onApprovalChange={handleApprovalChange}
                             />
                             <div className="flex items-center gap-2 mt-1">
                                 <span className="text-[10px]">DATA PITCHING - Y =</span>
@@ -228,15 +251,11 @@ function Page7() {
                     </div>
                 </div>
 
-                {/* 8.4 ROLLING - Y */}
+                {/* 8.4 ROLLING - Y (MAX 10μm) */}
                 <div className="flex gap-2 mb-3">
                     <div className="flex w-1/3">
                         <p className="font-bold text-[10px] mb-1">8.4 ROLLING - Y</p>
-                        <img
-                            src="/images/page7-image4.jpg"
-                            alt="Rolling Y Diagram"
-                            className="w-full h-auto"
-                        />
+                        <img src="/images/page7-image4.jpg" alt="Rolling Y Diagram" className="w-full h-auto" />
                         <div className="text-center text-[10px] mt-1">MAX<br />10μm</div>
 
                         <div className="w-2/3">
@@ -253,9 +272,9 @@ function Page7() {
                                     {
                                         cells: [
                                             { content: 'Y+', className: 'font-bold' },
-                                            { type: 'input', id: 'p84_b_yp', standard: '∞' },
-                                            { type: 'input', id: 'p84_c_yp', standard: '∞' },
-                                            { type: 'input', id: 'p84_diff_yp', standard: '∞' }
+                                            { type: 'input', id: 'p84_b_yp' },
+                                            { type: 'input', id: 'p84_c_yp' },
+                                            { type: 'display', id: 'p84_diff_yp', min: 0, max: 10 }
                                         ]
                                     },
                                     {
@@ -269,14 +288,16 @@ function Page7() {
                                     {
                                         cells: [
                                             { content: 'Y-', className: 'font-bold' },
-                                            { type: 'input', id: 'p84_b_ym', standard: '∞' },
-                                            { type: 'input', id: 'p84_c_ym', standard: '∞' },
-                                            { type: 'input', id: 'p84_diff_ym', standard: '∞' }
+                                            { type: 'input', id: 'p84_b_ym' },
+                                            { type: 'input', id: 'p84_c_ym' },
+                                            { type: 'display', id: 'p84_diff_ym', min: 0, max: 10 }
                                         ]
                                     }
                                 ]}
                                 measurements={measurements}
                                 onMeasurementChange={handleMeasurementChange}
+                                approvals={approvals}
+                                onApprovalChange={handleApprovalChange}
                             />
                             <div className="flex items-center gap-2 mt-1">
                                 <span className="text-[10px]">DATA ROLLING - Y =</span>
@@ -298,47 +319,31 @@ function Page7() {
                         <div>
                             <p className="text-[9px] mb-1">* ข้อ 8.3,8.4 กำหนดให้ใช้ ระดับน้ำดิจิตอลและใช้ Jig ยึดColumn สำหรับวางระดับน้ำ</p>
                             <div className="flex gap-4">
-                                <img
-                                    src="/images/page7-image5.jpg"
-                                    alt="Jig"
-                                    className="w-30 h-auto"
-                                />
+                                <img src="/images/page7-image5.jpg" alt="Jig" className="w-30 h-auto" />
                                 <div className="text-[10px] space-y-1">
                                     <div className="flex items-center gap-1">
                                         <span>1. LEVEL NO.</span>
-                                        <input
-                                            type="text"
-                                            className="border-b border-black w-16 bg-transparent outline-none"
+                                        <input type="text" className="border-b border-black w-16 bg-transparent outline-none"
                                             value={measurements['level_no_1'] || ''}
-                                            onChange={(e) => handleMeasurementChange('level_no_1', e.target.value)}
-                                        />
+                                            onChange={(e) => handleMeasurementChange('level_no_1', e.target.value)} />
                                     </div>
                                     <div className="flex items-center gap-1">
                                         <span>2. LEVEL NO.</span>
-                                        <input
-                                            type="text"
-                                            className="border-b border-black w-16 bg-transparent outline-none"
+                                        <input type="text" className="border-b border-black w-16 bg-transparent outline-none"
                                             value={measurements['level_no_2'] || ''}
-                                            onChange={(e) => handleMeasurementChange('level_no_2', e.target.value)}
-                                        />
+                                            onChange={(e) => handleMeasurementChange('level_no_2', e.target.value)} />
                                     </div>
                                     <div className="flex items-center gap-1">
                                         <span>3. LEVEL DIGITAL NO.</span>
-                                        <input
-                                            type="text"
-                                            className="border-b border-black w-16 bg-transparent outline-none"
+                                        <input type="text" className="border-b border-black w-16 bg-transparent outline-none"
                                             value={measurements['level_digital_no_3'] || ''}
-                                            onChange={(e) => handleMeasurementChange('level_digital_no_3', e.target.value)}
-                                        />
+                                            onChange={(e) => handleMeasurementChange('level_digital_no_3', e.target.value)} />
                                     </div>
                                     <div className="flex items-center gap-1">
                                         <span>4. LEVEL DIGITAL NO.</span>
-                                        <input
-                                            type="text"
-                                            className="border-b border-black w-16 bg-transparent outline-none"
+                                        <input type="text" className="border-b border-black w-16 bg-transparent outline-none"
                                             value={measurements['level_digital_no_4'] || ''}
-                                            onChange={(e) => handleMeasurementChange('level_digital_no_4', e.target.value)}
-                                        />
+                                            onChange={(e) => handleMeasurementChange('level_digital_no_4', e.target.value)} />
                                     </div>
                                 </div>
                             </div>

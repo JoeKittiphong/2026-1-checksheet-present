@@ -165,6 +165,23 @@ function UniversalTable({
                                 );
                             }
 
+                            // Display cell - แสดงค่าที่คำนวณอัตโนมัติ (อ่านอย่างเดียว) พร้อม validation
+                            if (cell.type === 'display' && cell.id) {
+                                const val = measurements[cell.id] || '';
+                                const isValid = validateValue(val, cell.min, cell.max);
+                                const cellBg = isValid ? 'bg-gray-100' : 'bg-red-300';
+                                return (
+                                    <td
+                                        key={cIdx}
+                                        className={`border border-black p-1 ${cellBg} align-middle text-center text-[11px] ${!isValid ? 'font-bold' : ''} ${cell.className || ''}`}
+                                        colSpan={cell.colSpan}
+                                        rowSpan={cell.rowSpan}
+                                    >
+                                        {val}
+                                    </td>
+                                );
+                            }
+
                             return (
                                 <td
                                     key={cIdx}

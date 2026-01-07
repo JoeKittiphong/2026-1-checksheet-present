@@ -14,7 +14,41 @@ function Page11() {
     const [measurements, setMeasurements] = useState({});
 
     const handleMeasurementChange = (id, value) => {
-        setMeasurements(prev => ({ ...prev, [id]: value }));
+        setMeasurements(prev => {
+            const next = { ...prev, [id]: value };
+
+            // Calculate Yawing X
+            if (['yawing_x_plus', 'yawing_x_center', 'yawing_x_minus'].includes(id)) {
+                const vals = [
+                    next['yawing_x_plus'],
+                    next['yawing_x_center'],
+                    next['yawing_x_minus']
+                ].map(v => parseFloat(v)).filter(n => !isNaN(n));
+
+                if (vals.length > 0) {
+                    next['yawing_x_val'] = Math.max(...vals) - Math.min(...vals);
+                } else {
+                    next['yawing_x_val'] = '';
+                }
+            }
+
+            // Calculate Yawing Y
+            if (['yawing_y_plus', 'yawing_y_center', 'yawing_y_minus'].includes(id)) {
+                const vals = [
+                    next['yawing_y_plus'],
+                    next['yawing_y_center'],
+                    next['yawing_y_minus']
+                ].map(v => parseFloat(v)).filter(n => !isNaN(n));
+
+                if (vals.length > 0) {
+                    next['yawing_y_val'] = Math.max(...vals) - Math.min(...vals);
+                } else {
+                    next['yawing_y_val'] = '';
+                }
+            }
+
+            return next;
+        });
     };
 
     return (
@@ -52,6 +86,7 @@ function Page11() {
                                     { x: 95, y: 95, text: '+ Y -', className: 'text-[8px]' }
                                 ]}
                                 className="w-full max-w-[120px]"
+                                redLineOn="vertical"
                             />
                         </div>
                         {/* Graph Xc */}
@@ -69,6 +104,7 @@ function Page11() {
                                     { x: 95, y: 95, text: '+ Y -', className: 'text-[8px]' }
                                 ]}
                                 className="w-full max-w-[120px]"
+                                redLineOn="vertical"
                             />
                         </div>
                         {/* Graph X- */}
@@ -83,6 +119,7 @@ function Page11() {
                                     { x: 10, y: 95, text: '- Y +', className: 'text-[8px]' }
                                 ]}
                                 className="w-full max-w-[120px]"
+                                redLineOn="vertical"
                             />
                         </div>
                     </div>
@@ -95,12 +132,9 @@ function Page11() {
                         <div className="p-1 space-y-1">
                             <div className="flex items-center gap-1">
                                 <span>Yawing X =</span>
-                                <input
-                                    type="text"
-                                    className="border-b border-black w-10 bg-transparent outline-none text-center"
-                                    value={measurements['yawing_x_val'] || ''}
-                                    onChange={(e) => handleMeasurementChange('yawing_x_val', e.target.value)}
-                                />
+                                <span className="border-b border-black w-10 text-center inline-block">
+                                    {measurements['yawing_x_val']}
+                                </span>
                                 <span>μm</span>
                             </div>
                             <p className='text-[10px]'>STD ≤ 2 μm</p>
@@ -232,12 +266,9 @@ function Page11() {
                     <div className="p-1 border-b border-black">
                         <div className="flex items-center gap-1">
                             <span>Yawing Y =</span>
-                            <input
-                                type="text"
-                                className="border-b border-black w-10 bg-transparent outline-none text-center"
-                                value={measurements['yawing_y_val'] || ''}
-                                onChange={(e) => handleMeasurementChange('yawing_y_val', e.target.value)}
-                            />
+                            <span className="border-b border-black w-10 text-center inline-block">
+                                {measurements['yawing_y_val']}
+                            </span>
                             <span>μm</span>
                         </div>
                         <p className="mt-1 text-[10px]">STD ≤ 2 μm</p>

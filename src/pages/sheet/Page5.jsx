@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import A4Paper from '../../components/A4Paper';
 import PageHeader from '../../components/PageHeader';
 import UniversalTable from '../../components/UniversalTable';
@@ -19,6 +19,42 @@ function Page5() {
     const handleApprovalChange = (id, value) => {
         setApprovals(prev => ({ ...prev, [id]: value }));
     };
+
+    // คำนวณค่า DIFF อัตโนมัติ (|A - B| ค่าสัมบูรณ์)
+    useEffect(() => {
+        const calculateDiff = (aId, bId, diffId) => {
+            const aVal = parseFloat(measurements[aId]);
+            const bVal = parseFloat(measurements[bId]);
+            if (!isNaN(aVal) && !isNaN(bVal)) {
+                const diff = Math.abs(aVal - bVal);
+                if (measurements[diffId] !== diff.toString()) {
+                    setMeasurements(prev => ({ ...prev, [diffId]: diff.toString() }));
+                }
+            }
+        };
+
+        // Section 5.1 Y-AXIS DIFF
+        // Row 1: A=0, B=0 (fixed), ไม่ต้องคำนวณ
+        calculateDiff('p5_y_akb_2', 'p5_y_b_2', 'p5_y_diff_2');
+        calculateDiff('p5_y_akb_3', 'p5_y_b_3', 'p5_y_diff_3');
+        calculateDiff('p5_y_akb_4', 'p5_y_b_4', 'p5_y_diff_4');
+        calculateDiff('p5_y_akb_5', 'p5_y_b_5', 'p5_y_diff_5');
+        calculateDiff('p5_y_akb_6', 'p5_y_b_6', 'p5_y_diff_6');
+        // Row 7: A=0 (fixed), so diff = |0 - B|
+        const yB7 = parseFloat(measurements['p5_y_b_7']);
+        if (!isNaN(yB7) && measurements['p5_y_diff_7'] !== Math.abs(0 - yB7).toString()) {
+            setMeasurements(prev => ({ ...prev, 'p5_y_diff_7': Math.abs(0 - yB7).toString() }));
+        }
+
+        // Section 5.2 X-AXIS DIFF
+        // Column 1: A=0, B=0 (fixed)
+        calculateDiff('p5_x_akb_2', 'p5_x_b_2', 'p5_x_diff_2');
+        calculateDiff('p5_x_akb_3', 'p5_x_b_3', 'p5_x_diff_3');
+        calculateDiff('p5_x_akb_4', 'p5_x_b_4', 'p5_x_diff_4');
+        calculateDiff('p5_x_akb_5', 'p5_x_b_5', 'p5_x_diff_5');
+        calculateDiff('p5_x_akb_6', 'p5_x_b_6', 'p5_x_diff_6');
+        calculateDiff('p5_x_akb_7', 'p5_x_b_7', 'p5_x_diff_7');
+    }, [measurements]);
 
     return (
         <A4Paper>
@@ -61,55 +97,55 @@ function Page5() {
                                             { content: '1' },
                                             { content: '0', className: 'bg-white' },
                                             { content: '0', className: 'bg-white' },
-                                            { type: 'input', id: 'p5_y_diff_1', standard: '∞' }
+                                            { type: 'display', id: 'p5_y_diff_1', min: 0, max: 2 }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: '2' },
-                                            { type: 'input', id: 'p5_y_akb_2', standard: '∞' },
-                                            { type: 'input', id: 'p5_y_b_2', standard: '∞' },
-                                            { type: 'input', id: 'p5_y_diff_2', standard: '∞' }
+                                            { type: 'input', id: 'p5_y_akb_2', min: -2, max: 2 },
+                                            { type: 'input', id: 'p5_y_b_2', min: -2, max: 2 },
+                                            { type: 'display', id: 'p5_y_diff_2', min: 0, max: 2 }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: '3' },
-                                            { type: 'input', id: 'p5_y_akb_3', standard: '∞' },
-                                            { type: 'input', id: 'p5_y_b_3', standard: '∞' },
-                                            { type: 'input', id: 'p5_y_diff_3', standard: '∞' }
+                                            { type: 'input', id: 'p5_y_akb_3', min: -2, max: 2 },
+                                            { type: 'input', id: 'p5_y_b_3', min: -2, max: 2 },
+                                            { type: 'display', id: 'p5_y_diff_3', min: 0, max: 2 }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: '4' },
-                                            { type: 'input', id: 'p5_y_akb_4', standard: '∞' },
-                                            { type: 'input', id: 'p5_y_b_4', standard: '∞' },
-                                            { type: 'input', id: 'p5_y_diff_4', standard: '∞' }
+                                            { type: 'input', id: 'p5_y_akb_4', min: -2, max: 2 },
+                                            { type: 'input', id: 'p5_y_b_4', min: -2, max: 2 },
+                                            { type: 'display', id: 'p5_y_diff_4', min: 0, max: 2 }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: '5' },
-                                            { type: 'input', id: 'p5_y_akb_5', standard: '∞' },
-                                            { type: 'input', id: 'p5_y_b_5', standard: '∞' },
-                                            { type: 'input', id: 'p5_y_diff_5', standard: '∞' }
+                                            { type: 'input', id: 'p5_y_akb_5', min: -2, max: 2 },
+                                            { type: 'input', id: 'p5_y_b_5', min: -2, max: 2 },
+                                            { type: 'display', id: 'p5_y_diff_5', min: 0, max: 2 }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: '6' },
-                                            { type: 'input', id: 'p5_y_akb_6', standard: '∞' },
-                                            { type: 'input', id: 'p5_y_b_6', standard: '∞' },
-                                            { type: 'input', id: 'p5_y_diff_6', standard: '∞' }
+                                            { type: 'input', id: 'p5_y_akb_6', min: -2, max: 2 },
+                                            { type: 'input', id: 'p5_y_b_6', min: -2, max: 2 },
+                                            { type: 'display', id: 'p5_y_diff_6', min: 0, max: 2 }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: '7' },
                                             { content: '0', className: 'bg-white' },
-                                            { type: 'input', id: 'p5_y_b_7', standard: '∞' },
-                                            { type: 'input', id: 'p5_y_diff_7', standard: '∞' }
+                                            { type: 'input', id: 'p5_y_b_7', min: -2, max: 2 },
+                                            { type: 'display', id: 'p5_y_diff_7', min: 0, max: 2 }
                                         ]
                                     }
                                 ]}
@@ -184,12 +220,12 @@ function Page5() {
                                     { content: 'B', className: 'bg-gray-200 font-bold' },
                                     { content: 'Data', className: 'bg-gray-200' },
                                     { content: '0', className: 'bg-white' },
-                                    { type: 'input', id: 'p5_x_b_2', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_b_3', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_b_4', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_b_5', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_b_6', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_b_7', standard: '∞' }
+                                    { type: 'input', id: 'p5_x_b_2', min: -2, max: 2 },
+                                    { type: 'input', id: 'p5_x_b_3', min: -2, max: 2 },
+                                    { type: 'input', id: 'p5_x_b_4', min: -2, max: 2 },
+                                    { type: 'input', id: 'p5_x_b_5', min: -2, max: 2 },
+                                    { type: 'input', id: 'p5_x_b_6', min: -2, max: 2 },
+                                    { type: 'input', id: 'p5_x_b_7', min: -2, max: 2 }
                                 ]
                             },
                             {
@@ -197,12 +233,12 @@ function Page5() {
                                     { content: 'A = KB', className: 'bg-gray-200 font-bold' },
                                     { content: 'Data', className: 'bg-gray-200' },
                                     { content: '0', className: 'bg-white' },
-                                    { type: 'input', id: 'p5_x_akb_2', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_akb_3', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_akb_4', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_akb_5', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_akb_6', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_akb_7', standard: '∞' }
+                                    { type: 'input', id: 'p5_x_akb_2', min: -2, max: 2 },
+                                    { type: 'input', id: 'p5_x_akb_3', min: -2, max: 2 },
+                                    { type: 'input', id: 'p5_x_akb_4', min: -2, max: 2 },
+                                    { type: 'input', id: 'p5_x_akb_5', min: -2, max: 2 },
+                                    { type: 'input', id: 'p5_x_akb_6', min: -2, max: 2 },
+                                    { type: 'input', id: 'p5_x_akb_7', min: -2, max: 2 }
                                 ]
                             },
                             {
@@ -210,12 +246,12 @@ function Page5() {
                                     { content: 'DIFF', className: 'bg-gray-200 font-bold' },
                                     { content: 'Data', className: 'bg-gray-200' },
                                     { content: '0', className: 'bg-white' },
-                                    { type: 'input', id: 'p5_x_diff_2', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_diff_3', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_diff_4', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_diff_5', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_diff_6', standard: '∞' },
-                                    { type: 'input', id: 'p5_x_diff_7', standard: '∞' }
+                                    { type: 'display', id: 'p5_x_diff_2', min: 0, max: 2 },
+                                    { type: 'display', id: 'p5_x_diff_3', min: 0, max: 2 },
+                                    { type: 'display', id: 'p5_x_diff_4', min: 0, max: 2 },
+                                    { type: 'display', id: 'p5_x_diff_5', min: 0, max: 2 },
+                                    { type: 'display', id: 'p5_x_diff_6', min: 0, max: 2 },
+                                    { type: 'display', id: 'p5_x_diff_7', min: 0, max: 2 }
                                 ]
                             }
                         ]}

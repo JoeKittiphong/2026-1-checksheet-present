@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import A4Paper from '../../components/A4Paper';
 import PageHeader from '../../components/PageHeader';
+import UniversalTable from '../../components/UniversalTable';
 import CheckedByDate from '../../components/CheckedByDate';
 
 /**
@@ -9,14 +10,37 @@ import CheckedByDate from '../../components/CheckedByDate';
  */
 function Page10() {
     const [measurements, setMeasurements] = useState({});
+    const [approvals, setApprovals] = useState({});
 
     const handleMeasurementChange = (id, value) => {
         setMeasurements(prev => ({ ...prev, [id]: value }));
     };
 
-    const rows = [
-        240, 220, 200, 180, 160, 140, 120, 100, 80, 60, 40, 20, 0
-    ];
+    const handleApprovalChange = (id, value) => {
+        setApprovals(prev => ({ ...prev, [id]: value }));
+    };
+
+    // Generate rows for ENTO table (240 to 20, step 20)
+    const entoRows = [];
+    for (let i = 240; i >= 20; i -= 20) {
+        entoRows.push({
+            cells: [
+                { content: i.toString(), className: 'p-0 !h-6' }, // Reduced height cells
+                { type: 'input', id: `ento_front_${i}`, min: -12, max: 2, className: '!h-6' },
+                { type: 'input', id: `ento_side_${i}`, min: -5, max: 5, className: '!h-6' }
+            ],
+            className: 'h-6'
+        });
+    }
+    // Add row 0 (fixed values)
+    entoRows.push({
+        cells: [
+            { content: '0', className: 'p-0 !h-6' },
+            { content: '0', className: 'bg-white p-0 !h-6' },
+            { content: '0', className: 'bg-white p-0 !h-6' }
+        ],
+        className: 'h-6'
+    });
 
     return (
         <A4Paper>
@@ -64,7 +88,12 @@ function Page10() {
                                 <span>FRONT = </span>
                                 {['A', 'B', 'C', 'D'].map(char => (
                                     <label key={char} className="flex items-center gap-1 cursor-pointer">
-                                        <span className={measurements['front_selection'] === char ? 'font-bold underline' : ''}>{char}</span>
+                                        <input type="radio" name="front_selection" value={char}
+                                            checked={measurements['front_selection'] === char}
+                                            onChange={(e) => handleMeasurementChange('front_selection', e.target.value)}
+                                            className="hidden" // Hide default radio
+                                        />
+                                        <span className={measurements['front_selection'] === char ? 'font-bold underline text-blue-600' : ''}>{char}</span>
                                     </label>
                                 ))}
                             </div>
@@ -72,7 +101,12 @@ function Page10() {
                                 <span>SIDE &nbsp;&nbsp; = </span>
                                 {['A', 'B', 'C', 'D'].map(char => (
                                     <label key={char} className="flex items-center gap-1 cursor-pointer">
-                                        <span className={measurements['side_selection'] === char ? 'font-bold underline' : ''}>{char}</span>
+                                        <input type="radio" name="side_selection" value={char}
+                                            checked={measurements['side_selection'] === char}
+                                            onChange={(e) => handleMeasurementChange('side_selection', e.target.value)}
+                                            className="hidden" // Hide default radio
+                                        />
+                                        <span className={measurements['side_selection'] === char ? 'font-bold underline text-blue-600' : ''}>{char}</span>
                                     </label>
                                 ))}
                             </div>
@@ -99,43 +133,23 @@ function Page10() {
 
                     {/* Right Column: Table and Data Spacer */}
                     <div className="w-2/3">
-                        {/* Table */}
-                        <table className="border-collapse border border-black text-[10px] w-full mb-8">
-                            <thead>
-                                <tr>
-                                    <th className="border border-black px-2 py-1 w-16 bg-gray-100 diagonal-bg h-8"></th>
-                                    <th className="border border-black px-2 py-1">FRONT MAX (+2) - (-12)</th>
-                                    <th className="border border-black px-2 py-1">SIDE MAX (0) - (± 5)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {rows.map((val) => (
-                                    <tr key={val}>
-                                        <td className="border border-black px-2 py-1 text-center h-6">{val}</td>
-                                        <td className="border border-black px-2 py-1 text-center">
-                                            {val === 0 ? '0' : (
-                                                <input
-                                                    type="text"
-                                                    className="w-full bg-transparent outline-none text-center"
-                                                    value={measurements[`ento_front_${val}`] || ''}
-                                                    onChange={(e) => handleMeasurementChange(`ento_front_${val}`, e.target.value)}
-                                                />
-                                            )}
-                                        </td>
-                                        <td className="border border-black px-2 py-1 text-center h-6">
-                                            {val === 0 ? '0' : (
-                                                <input
-                                                    type="text"
-                                                    className="w-full bg-transparent outline-none text-center"
-                                                    value={measurements[`ento_side_${val}`] || ''}
-                                                    onChange={(e) => handleMeasurementChange(`ento_side_${val}`, e.target.value)}
-                                                />
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        {/* Table using UniversalTable */}
+                        <div className="mb-4">
+                            <UniversalTable
+                                headerRows={[
+                                    [
+                                        { label: '', width: '50px' },
+                                        { label: 'FRONT MAX (+2) - (-12)', width: '120px' },
+                                        { label: 'SIDE MAX (0) - (± 5)', width: '120px' }
+                                    ]
+                                ]}
+                                rows={entoRows}
+                                measurements={measurements}
+                                onMeasurementChange={handleMeasurementChange}
+                                approvals={approvals}
+                                onApprovalChange={handleApprovalChange}
+                            />
+                        </div>
 
                         {/* Data Spacer Diagram Section */}
                         <div>
@@ -149,9 +163,6 @@ function Page10() {
                                         className="w-50"
                                     />
                                 </div>
-
-                                {/* Inputs overlay - positioned approximately */}
-                                {/* Note: In a real app with a fixed image, we would adjust top/left/right percentages */}
 
                                 {/* Top Left */}
                                 <div className="absolute top-10 left-20 flex items-center">

@@ -84,8 +84,8 @@ function Page3() {
                             rows={[
                                 {
                                     cells: [
-                                        { type: 'input', id: 'y_p_1', standard: '∞' },
-                                        { type: 'input', id: 'y_r_1', standard: '∞' },
+                                        { type: 'input', id: 'y_p_1', min: 0, max: 5 },
+                                        { type: 'input', id: 'y_r_1', min: 0, max: 5 },
                                         { content: '5 ↑' },
                                         { content: '5' },
                                         { content: '3', className: 'bg-gray-400 font-bold' }
@@ -93,8 +93,8 @@ function Page3() {
                                 },
                                 {
                                     cells: [
-                                        { type: 'input', id: 'y_p_2', standard: '∞' },
-                                        { type: 'input', id: 'y_r_2', standard: '∞' },
+                                        { type: 'input', id: 'y_p_2', min: 0, max: 0 },
+                                        { type: 'input', id: 'y_r_2', min: 0, max: 0 },
                                         { content: '0' },
                                         { content: '0' },
                                         { content: '2', className: 'bg-gray-400 font-bold' }
@@ -102,8 +102,8 @@ function Page3() {
                                 },
                                 {
                                     cells: [
-                                        { type: 'input', id: 'y_p_3', standard: '∞' },
-                                        { type: 'input', id: 'y_r_3', standard: '∞' },
+                                        { type: 'input', id: 'y_p_3', min: -5, max: 0 },
+                                        { type: 'input', id: 'y_r_3', min: 0, max: 5 },
                                         { content: '5 ↓' },
                                         { content: '5' },
                                         { content: '1', className: 'bg-gray-400 font-bold' }
@@ -162,17 +162,17 @@ function Page3() {
                                     cells: [
                                         { content: 'Act.', rowSpan: 2, className: 'bg-gray-200' },
                                         { content: 'P', className: 'bg-gray-200' },
-                                        { type: 'input', id: 'x_act_p_1', standard: '∞' },
+                                        { type: 'input', id: 'x_act_p_1', min: 0, max: 5 },
                                         { content: '0' },
-                                        { type: 'input', id: 'x_act_p_3', standard: '∞' }
+                                        { type: 'input', id: 'x_act_p_3', min: -5, max: 0 }
                                     ]
                                 },
                                 {
                                     cells: [
                                         { content: 'R', className: 'bg-gray-200' },
-                                        { type: 'input', id: 'x_act_r_1', standard: '∞' },
+                                        { type: 'input', id: 'x_act_r_1', min: 0, max: 5 },
                                         { content: '0 ↕' },
-                                        { type: 'input', id: 'x_act_r_3', standard: '∞' }
+                                        { type: 'input', id: 'x_act_r_3', min: -5, max: 0 }
                                     ]
                                 }
                             ]}

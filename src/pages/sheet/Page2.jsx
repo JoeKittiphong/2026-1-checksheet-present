@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import A4Paper from '../../components/A4Paper';
 import PageHeader from '../../components/PageHeader';
 import UniversalTable from '../../components/UniversalTable';
@@ -19,6 +19,46 @@ function Page2() {
     const handleApprovalChange = (id, value) => {
         setApprovals(prev => ({ ...prev, [id]: value }));
     };
+
+    // คำนวณค่า DIFF อัตโนมัติ (|A - B| ค่าสัมบูรณ์)
+    useEffect(() => {
+        const calculateDiff = (aId, bId, diffId) => {
+            const aVal = parseFloat(measurements[aId]);
+            const bVal = parseFloat(measurements[bId]);
+            if (!isNaN(aVal) && !isNaN(bVal)) {
+                const diff = Math.abs(aVal - bVal); // ค่าสัมบูรณ์
+                if (measurements[diffId] !== diff.toString()) {
+                    setMeasurements(prev => ({ ...prev, [diffId]: diff.toString() }));
+                }
+            }
+        };
+
+        // Section 2.1 LEVELING CHECK (Y) - คำนวณ DIFF สำหรับแต่ละ row
+        calculateDiff('y_akb_1', 'y_b_1', 'y_diff_1');
+        calculateDiff('y_akb_2', 'y_b_2', 'y_diff_2');
+        calculateDiff('y_akb_3', 'y_b_3', 'y_diff_3');
+        // Row 4: A=0 (fixed), so diff = |0 - B|
+        const yB4 = parseFloat(measurements['y_b_4']);
+        if (!isNaN(yB4) && measurements['y_diff_4'] !== Math.abs(0 - yB4).toString()) {
+            setMeasurements(prev => ({ ...prev, 'y_diff_4': Math.abs(0 - yB4).toString() }));
+        }
+        calculateDiff('y_akb_5', 'y_b_5', 'y_diff_5');
+        calculateDiff('y_akb_6', 'y_b_6', 'y_diff_6');
+        calculateDiff('y_akb_7', 'y_b_7', 'y_diff_7');
+
+        // Section 2.2 LEVELING CHECK (X) - คำนวณ DIFF สำหรับแต่ละ column
+        calculateDiff('x_a_1', 'x_b_1', 'x_diff_1');
+        calculateDiff('x_a_2', 'x_b_2', 'x_diff_2');
+        calculateDiff('x_a_3', 'x_b_3', 'x_diff_3');
+        // Column 4: A=0 (fixed), so diff = |0 - B|
+        const xB4 = parseFloat(measurements['x_b_4']);
+        if (!isNaN(xB4) && measurements['x_diff_4'] !== Math.abs(0 - xB4).toString()) {
+            setMeasurements(prev => ({ ...prev, 'x_diff_4': Math.abs(0 - xB4).toString() }));
+        }
+        calculateDiff('x_a_5', 'x_b_5', 'x_diff_5');
+        calculateDiff('x_a_6', 'x_b_6', 'x_diff_6');
+        calculateDiff('x_a_7', 'x_b_7', 'x_diff_7');
+    }, [measurements]);
 
     return (
         <A4Paper>
@@ -67,25 +107,25 @@ function Page2() {
                                             { content: '0-5 ↑' },
                                             { type: 'input', id: 'y_akb_1', min: 0, max: 5 },
                                             { type: 'input', id: 'y_b_1', min: 0, max: 5 },
-                                            { type: 'input', id: 'y_diff_1' }
+                                            { type: 'display', id: 'y_diff_1' }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: '2' },
                                             { content: '0-5 ↑' },
-                                            { type: 'input', id: 'y_akb_2', standard: '∞' },
-                                            { type: 'input', id: 'y_b_2', standard: '∞' },
-                                            { type: 'input', id: 'y_diff_2' }
+                                            { type: 'input', id: 'y_akb_2', min: 0, max: 5 },
+                                            { type: 'input', id: 'y_b_2', min: 0, max: 5 },
+                                            { type: 'display', id: 'y_diff_2' }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: '3' },
                                             { content: '0' },
-                                            { type: 'input', id: 'y_akb_3', standard: '∞' },
-                                            { type: 'input', id: 'y_b_3', standard: '∞' },
-                                            { type: 'input', id: 'y_diff_3' }
+                                            { type: 'input', id: 'y_akb_3', min: 0, max: 0 },
+                                            { type: 'input', id: 'y_b_3', min: 0, max: 0 },
+                                            { type: 'display', id: 'y_diff_3' }
                                         ]
                                     },
                                     {
@@ -93,35 +133,35 @@ function Page2() {
                                             { content: '4' },
                                             { content: '0' },
                                             { content: '0', className: 'bg-white' },
-                                            { type: 'input', id: 'y_b_4', standard: '∞' },
-                                            { type: 'input', id: 'y_diff_4' }
+                                            { type: 'input', id: 'y_b_4', min: 0, max: 0 },
+                                            { type: 'display', id: 'y_diff_4' }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: '5' },
                                             { content: '0' },
-                                            { type: 'input', id: 'y_akb_5', standard: '∞' },
-                                            { type: 'input', id: 'y_b_5', standard: '∞' },
-                                            { type: 'input', id: 'y_diff_5' }
+                                            { type: 'input', id: 'y_akb_5', min: 0, max: 0 },
+                                            { type: 'input', id: 'y_b_5', min: 0, max: 0 },
+                                            { type: 'display', id: 'y_diff_5' }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: '6' },
                                             { content: '0-5 ↓' },
-                                            { type: 'input', id: 'y_akb_6', standard: '∞' },
-                                            { type: 'input', id: 'y_b_6', standard: '∞' },
-                                            { type: 'input', id: 'y_diff_6' }
+                                            { type: 'input', id: 'y_akb_6', min: -5, max: 0 },
+                                            { type: 'input', id: 'y_b_6', min: -5, max: 0 },
+                                            { type: 'display', id: 'y_diff_6' }
                                         ]
                                     },
                                     {
                                         cells: [
                                             { content: '7' },
                                             { content: '0-5 ↓' },
-                                            { type: 'input', id: 'y_akb_7', standard: '∞' },
-                                            { type: 'input', id: 'y_b_7', standard: '∞' },
-                                            { type: 'input', id: 'y_diff_7' }
+                                            { type: 'input', id: 'y_akb_7', min: -5, max: 0 },
+                                            { type: 'input', id: 'y_b_7', min: -5, max: 0 },
+                                            { type: 'display', id: 'y_diff_7' }
                                         ]
                                     }
                                 ]}
@@ -167,49 +207,49 @@ function Page2() {
                             {
                                 cells: [
                                     { content: 'STD', className: 'bg-gray-200 font-bold text-left pl-1' },
-                                    { content: '5 - 0' },
-                                    { content: '5 - 0' },
+                                    { content: '5> - 0' },
+                                    { content: '5> - 0' },
                                     { content: '0' },
                                     { content: '0' },
                                     { content: '0' },
-                                    { content: '5 - 0' },
-                                    { content: '5 - 0' }
+                                    { content: '5< - 0' },
+                                    { content: '5< - 0' }
                                 ]
                             },
                             {
                                 cells: [
                                     { content: 'B', className: 'bg-gray-200 font-bold text-left pl-1' },
-                                    { type: 'input', id: 'x_b_1', standard: '∞' },
-                                    { type: 'input', id: 'x_b_2', standard: '∞' },
-                                    { type: 'input', id: 'x_b_3', standard: '∞' },
-                                    { type: 'input', id: 'x_b_4', standard: '∞' },
-                                    { type: 'input', id: 'x_b_5', standard: '∞' },
-                                    { type: 'input', id: 'x_b_6', standard: '∞' },
-                                    { type: 'input', id: 'x_b_7', standard: '∞' }
+                                    { type: 'input', id: 'x_b_1', min: 0, max: 5 },
+                                    { type: 'input', id: 'x_b_2', min: 0, max: 5 },
+                                    { type: 'input', id: 'x_b_3', min: 0, max: 0 },
+                                    { type: 'input', id: 'x_b_4', min: 0, max: 0 },
+                                    { type: 'input', id: 'x_b_5', min: 0, max: 0 },
+                                    { type: 'input', id: 'x_b_6', min: -5, max: 0 },
+                                    { type: 'input', id: 'x_b_7', min: -5, max: 0 }
                                 ]
                             },
                             {
                                 cells: [
                                     { content: 'A = Kb', className: 'bg-gray-200 font-bold text-left pl-1' },
-                                    { content: '' },
-                                    { content: '' },
+                                    { type: 'input', id: 'x_a_1', min: 0, max: 5 },
+                                    { type: 'input', id: 'x_a_2', min: 0, max: 5 },
+                                    { type: 'input', id: 'x_a_3', min: 0, max: 0 },
                                     { content: '0' },
-                                    { content: '' },
-                                    { content: '' },
-                                    { content: '' },
-                                    { content: '' }
+                                    { type: 'input', id: 'x_a_5', min: 0, max: 0 },
+                                    { type: 'input', id: 'x_a_6', min: -5, max: 0 },
+                                    { type: 'input', id: 'x_a_7', min: -5, max: 0 }
                                 ]
                             },
                             {
                                 cells: [
                                     { content: 'DIFF', className: 'bg-gray-200 font-bold text-left pl-1' },
-                                    { type: 'input', id: 'x_diff_1' },
-                                    { type: 'input', id: 'x_diff_2' },
-                                    { type: 'input', id: 'x_diff_3' },
-                                    { type: 'input', id: 'x_diff_4' },
-                                    { type: 'input', id: 'x_diff_5' },
-                                    { type: 'input', id: 'x_diff_6' },
-                                    { type: 'input', id: 'x_diff_7' }
+                                    { type: 'display', id: 'x_diff_1' },
+                                    { type: 'display', id: 'x_diff_2' },
+                                    { type: 'display', id: 'x_diff_3' },
+                                    { type: 'display', id: 'x_diff_4' },
+                                    { type: 'display', id: 'x_diff_5' },
+                                    { type: 'display', id: 'x_diff_6' },
+                                    { type: 'display', id: 'x_diff_7' }
                                 ]
                             }
                         ]}

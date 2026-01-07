@@ -58,11 +58,6 @@ function Page14() {
                             <td className="border border-black font-bold bg-gray-100">RETURN</td>
                             {columns.map((col, idx) => (
                                 <td key={idx} className="border border-black relative h-4">
-                                    {/* Diagonal line logic could go here, but simple input for now or SVG */}
-                                    {/* Image shows a diagonal line in the return cell? No, it looks like just a cell. 
-                                     Actually, looking closer at X AXIS bottom, there is a diagonal slash in the first cell of RETURN row maybe?
-                                     Let's just keep it simple.
-                                 */}
                                 </td>
                             ))}
                         </tr>

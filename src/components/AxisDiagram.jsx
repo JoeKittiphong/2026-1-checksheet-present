@@ -1,4 +1,5 @@
 import React from 'react';
+import NumericKeypad from './NumericKeypad';
 
 /**
  * AxisDiagram Component
@@ -25,7 +26,8 @@ const AxisDiagram = ({
     unit = 'μm',
     labels = [],
     tickLabels = [],
-    className = ''
+    className = '',
+    redLineOn = 'horizontal'
 }) => {
     // SVG ViewBox is 0 0 100 100
     // Margins: 15
@@ -85,6 +87,57 @@ const AxisDiagram = ({
             break;
     }
 
+    let redLine = null;
+    if (value !== '' && !isNaN(parseFloat(value))) {
+        const val = parseFloat(value);
+        const scale = 3; // Scale factor for visibility
+
+        // Find Intersection
+        let intersection = { x: 0, y: 0 };
+        // Helper to check point equality
+        const isSame = (p1, p2) => Math.abs(p1.x - p2.x) < 0.1 && Math.abs(p1.y - p2.y) < 0.1;
+
+        const hP1 = { x: hLine.x1, y: hLine.y1 };
+        const hP2 = { x: hLine.x2, y: hLine.y2 };
+        const vP1 = { x: vLine.x1, y: vLine.y1 };
+        const vP2 = { x: vLine.x2, y: vLine.y2 };
+
+        if (isSame(hP1, vP1) || isSame(hP1, vP2)) {
+            intersection = hP1;
+        } else {
+            intersection = hP2;
+        }
+
+        if (redLineOn === 'horizontal') {
+            let hEnd = isSame(intersection, hP1) ? hP2 : hP1;
+            // Calculate Target Y for Horizontal Line
+            // SVG Y increases downwards.
+            // We want +val to go UP (decrease Y), -val to go DOWN (increase Y)
+            const targetY = hEnd.y - (val * scale);
+
+            redLine = {
+                x1: intersection.x,
+                y1: intersection.y,
+                x2: hEnd.x,
+                y2: targetY
+            };
+        } else { // redLineOn === 'vertical'
+            // Vertical Line
+            let vEnd = isSame(intersection, vP1) ? vP2 : vP1;
+            // Calculate Target X for Vertical Line
+            // We correspond vertical deviation to X.
+            // Usually + is Right (Increase X), - is Left (Decrease X).
+            const targetX = vEnd.x + (val * scale);
+
+            redLine = {
+                x1: intersection.x,
+                y1: intersection.y,
+                x2: targetX,
+                y2: vEnd.y
+            };
+        }
+    }
+
     return (
         <div className={`flex flex-col items-center border border-black p-2 ${className}`}>
             <div className="relative w-full aspect-square max-w-[150px]">
@@ -96,6 +149,18 @@ const AxisDiagram = ({
                     {/* End Caps (Ticks) */}
                     <line x1={hCap.x1} y1={hCap.y1} x2={hCap.x2} y2={hCap.y2} stroke="black" strokeWidth="1.5" />
                     <line x1={vCap.x1} y1={vCap.y1} x2={vCap.x2} y2={vCap.y2} stroke="black" strokeWidth="1.5" />
+
+                    {/* Red Tilt Line */}
+                    {redLine && (
+                        <line
+                            x1={redLine.x1}
+                            y1={redLine.y1}
+                            x2={redLine.x2}
+                            y2={redLine.y2}
+                            stroke="red"
+                            strokeWidth="2"
+                        />
+                    )}
 
                     {/* Custom Labels from props (Percent based) */}
                     {labels.map((lbl, idx) => (
@@ -113,17 +178,16 @@ const AxisDiagram = ({
                 </svg>
             </div>
 
-            {/* Input Field */}
-            <div className="flex items-center gap-1 mt-1 w-full justify-center">
-                {title && <span className="text-[10px] whitespace-nowrap">{title}</span>}
-                <input
-                    type="text"
-                    className="border-b border-black w-full min-w-[30px] text-center text-[10px] outline-none bg-transparent"
-                    value={value}
-                    onChange={onChange}
-                />
-                <span className="text-[10px]">{unit}</span>
-            </div>
+            {/* Input Field with NumericKeypad */}
+            <NumericKeypad
+                className="flex items-center gap-1 mt-1 w-full justify-center"
+                value={value}
+                onChange={onChange}
+                label={title ? <span className="text-[10px] whitespace-nowrap">{title}</span> : null}
+                unit={<span className="text-[10px]">{unit}</span>}
+                inputClassName="border-b border-black w-full min-w-[30px] text-center text-[10px] outline-none bg-transparent"
+                width="w-full"
+            />
         </div>
     );
 };

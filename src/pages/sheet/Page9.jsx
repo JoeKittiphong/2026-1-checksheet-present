@@ -125,23 +125,23 @@ function Page9() {
                             rows={[
                                 {
                                     cells: [
-                                        { type: 'input', id: 'ceramic_1_1', standard: '∞' },
-                                        { type: 'input', id: 'ceramic_1_2', standard: '∞' },
-                                        { type: 'input', id: 'ceramic_1_3', standard: '∞' }
+                                        { type: 'input', id: 'ceramic_1_1', min: -5, max: 5 },
+                                        { type: 'input', id: 'ceramic_1_2', min: -5, max: 5 },
+                                        { type: 'input', id: 'ceramic_1_3', min: -5, max: 5 }
                                     ]
                                 },
                                 {
                                     cells: [
-                                        { type: 'input', id: 'ceramic_2_1', standard: '∞' },
-                                        { type: 'input', id: 'ceramic_2_2', standard: '∞' },
-                                        { type: 'input', id: 'ceramic_2_3', standard: '∞' }
+                                        { type: 'input', id: 'ceramic_2_1', min: -5, max: 5 },
+                                        { type: 'input', id: 'ceramic_2_2', min: -5, max: 5 },
+                                        { type: 'input', id: 'ceramic_2_3', min: -5, max: 5 }
                                     ]
                                 },
                                 {
                                     cells: [
-                                        { type: 'input', id: 'ceramic_3_1', standard: '∞' },
+                                        { type: 'input', id: 'ceramic_3_1', min: -5, max: 5 },
                                         { content: '⌀' },
-                                        { type: 'input', id: 'ceramic_3_3', standard: '∞' }
+                                        { type: 'input', id: 'ceramic_3_3', min: -5, max: 5 }
                                     ]
                                 }
                             ]}
