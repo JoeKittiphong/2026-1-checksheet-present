@@ -48,7 +48,7 @@ function Page20() {
 
                     <div className="relative w-full h-[320px] border border-gray-300 bg-gray-50 mb-2">
                         <img
-                            src="/images/page20-image1.jpg"
+                            src="/images/page20-image1.png"
                             alt="Brake Air Hose Check Diagram"
                             className="w-full h-full object-contain opacity-70"
                         />
@@ -56,7 +56,7 @@ function Page20() {
                         {/* Checkboxes Overlay */}
 
                         {/* V Axis (Top Left) */}
-                        <div className="absolute top-[25%] left-[10%] flex flex-col items-center">
+                        <div className="absolute top-[15%] left-[15%] flex flex-col items-center">
                             <label className="cursor-pointer">
                                 <input
                                     type="checkbox"
@@ -65,11 +65,11 @@ function Page20() {
                                     onChange={() => handleCheckboxChange('brake_check_v')}
                                 />
                             </label>
-                            <span className="font-bold bg-white px-1">V Axis</span>
+
                         </div>
 
                         {/* U Axis (Top Right) */}
-                        <div className="absolute top-[25%] right-[10%] flex flex-col items-center">
+                        <div className="absolute top-[15%] right-[15%] flex flex-col items-center">
                             <label className="cursor-pointer">
                                 <input
                                     type="checkbox"
@@ -78,12 +78,12 @@ function Page20() {
                                     onChange={() => handleCheckboxChange('brake_check_u')}
                                 />
                             </label>
-                            <span className="font-bold bg-white px-1">U Axis</span>
+
                         </div>
 
                         {/* Y Axis (Bottom Left) */}
-                        <div className="absolute bottom-[20%] left-[15%] flex flex-col items-center">
-                            <span className="font-bold bg-white px-1 mb-1">Y Axis</span>
+                        <div className="absolute bottom-[15%] left-[15%] flex flex-col items-center">
+
                             <label className="cursor-pointer">
                                 <input
                                     type="checkbox"
@@ -95,8 +95,8 @@ function Page20() {
                         </div>
 
                         {/* X Axis (Bottom Right) */}
-                        <div className="absolute bottom-[20%] right-[15%] flex flex-col items-center">
-                            <span className="font-bold bg-white px-1 mb-1">X Axis</span>
+                        <div className="absolute bottom-[15%] right-[15%] flex flex-col items-center">
+
                             <label className="cursor-pointer">
                                 <input
                                     type="checkbox"
@@ -133,7 +133,7 @@ function Page20() {
 
                     {/* Diagram Seal Frame */}
                     <DiagramImage
-                        src="/images/page20-image2.jpg"
+                        src="/images/page20-image2.png"
                         alt="Seal Frame Diagram"
                         height="h-32"
                         hasBorder={true}
@@ -146,7 +146,7 @@ function Page20() {
                 <div className="flex gap-4 items-end">
                     {/* Image Left */}
                     <DiagramImage
-                        src="/images/page20-image3.jpg"
+                        src="/images/page20-image3.png"
                         alt="Bake Plate Support Diagram"
                         width="w-[45%]"
                         height="h-48"

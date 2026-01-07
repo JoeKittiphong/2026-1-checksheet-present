@@ -136,7 +136,7 @@ function Page22() {
                     {/* Image/Diagram */}
                     <div className="mt-4 border border-gray-300 p-2 flex justify-center bg-gray-50 h-56">
                         <img
-                            src="/images/page22-image1.jpg" // Placeholder
+                            src="/images/page22-image1.png" // Placeholder
                             alt="Body Group Option Tag Diagram"
                             className="max-h-full max-w-full"
                         />

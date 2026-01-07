@@ -44,7 +44,7 @@ function Page21() {
                 {/* Main Diagram Area */}
                 <div className="relative flex-1 border border-gray-300 bg-gray-50 mb-2">
                     <img
-                        src="/images/page21-image1.jpg"
+                        src="/images/page21-image1.png"
                         alt="Machine Inspection Diagram"
                         className="w-full h-full object-contain opacity-60"
                     />
