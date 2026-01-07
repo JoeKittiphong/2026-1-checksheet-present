@@ -2,6 +2,8 @@ import { useState } from 'react';
 import A4Paper from '../../components/A4Paper';
 import PageHeader from '../../components/PageHeader';
 import CheckedByDate from '../../components/CheckedByDate';
+import UniversalTable from '../../components/UniversalTable';
+import NumericKeypad from '../../components/NumericKeypad';
 
 /**
  * Page14 Component
@@ -12,66 +14,137 @@ function Page14() {
     const [measurements, setMeasurements] = useState({});
 
     const handleMeasurementChange = (id, value) => {
-        setMeasurements(prev => ({ ...prev, [id]: value }));
+        setMeasurements(prev => {
+            const newMeasurements = { ...prev, [id]: value };
+
+            // Auto-calculate Diff (Col 2) for Pitch Tables
+            // ID format: pitch_{axis}_{row}_{col} (col 0=A, 1=B)
+            const match = id.match(/^pitch_([a-z]+)_(\d+)_([01])$/);
+            if (match) {
+                const axis = match[1];
+                const row = match[2];
+                const col = parseInt(match[3]); // 0 for A, 1 for B
+
+                const otherCol = col === 0 ? 1 : 0; // The other input column
+                const otherId = `pitch_${axis}_${row}_${otherCol}`;
+
+                // Get the values for A and B from the newMeasurements object
+                // The current 'value' is already in newMeasurements[id]
+                const valA = col === 0 ? newMeasurements[id] : newMeasurements[otherId];
+                const valB = col === 1 ? newMeasurements[id] : newMeasurements[otherId];
+
+                // Check if both A and B have valid numeric values
+                const parsedValA = parseFloat(valA);
+                const parsedValB = parseFloat(valB);
+
+                if (!isNaN(parsedValA) && !isNaN(parsedValB) && valA !== '' && valB !== '') {
+                    const diff = Math.abs(parsedValA - parsedValB);
+                    const diffId = `pitch_${axis}_${row}_2`; // Col 2 is the Diff column
+
+                    // Format to 4 decimal places and convert to string
+                    newMeasurements[diffId] = parseFloat(diff.toFixed(4)).toString();
+                } else {
+                    // If either A or B is not a valid number or is empty, clear the diff
+                    const diffId = `pitch_${axis}_${row}_2`;
+                    newMeasurements[diffId] = '';
+                }
+            }
+
+            return newMeasurements;
+        });
     };
 
-    const renderPitchTable = (axis, range, start, step, end, columns, showBottomLabels = true) => {
+    const renderUniversalPitchTable = (axis, start, step, end, columns) => {
         const rows = [];
         for (let i = start; i >= end; i -= step) {
-            rows.push(i);
+            rows.push({
+                cells: [
+                    { content: i, className: 'bg-gray-50 !h-4 p-0' },
+                    ...columns.map((_, idx) => ({
+                        type: idx === 2 ? 'display' : 'input',
+                        id: `pitch_${axis.toLowerCase()}_${i}_${idx}`,
+                        className: idx === 2 ? 'bg-gray-200 !h-4 p-0 font-bold' : '!h-4 p-0'
+                    }))
+                ]
+            });
         }
 
-        return (
-            <div className="w-full">
-                {/* Header */}
-                <div className={`border border-black border-b-0 bg-gray-200 text-center font-bold py-1 text-[10px]`}>
-                    {axis === 'X' || axis === 'Y' ? `${axis} AXIS` : `${axis} axis`}
-                </div>
+        // Return Row
+        rows.push({
+            cells: [
+                { content: 'RETURN', className: 'bg-gray-100 font-bold !h-4 p-0' },
+                ...columns.map(() => ({ content: '', className: '!h-4 p-0' }))
+            ]
+        });
 
-                <table className="w-full border-collapse border border-black text-center text-[9px]">
-                    <thead>
-                        <tr>
-                            <th className="border border-black w-8 bg-gray-100">mm</th>
-                            {columns.map((col, idx) => (
-                                <th key={idx} className="border border-black"></th> // Empty headers as they are labeled at bottom
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rows.map(val => (
-                            <tr key={val}>
-                                <td className="border border-black bg-gray-50">{val}</td>
-                                {columns.map((col, idx) => (
-                                    <td key={idx} className="border border-black p-0 h-4">
-                                        <input
-                                            type="text"
-                                            className="w-full h-full text-center outline-none bg-transparent"
-                                            value={measurements[`pitch_${axis.toLowerCase()}_${val}_${idx}`] || ''}
-                                            onChange={(e) => handleMeasurementChange(`pitch_${axis.toLowerCase()}_${val}_${idx}`, e.target.value)}
-                                        />
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
-                        {/* RETURN ROW */}
-                        <tr>
-                            <td className="border border-black font-bold bg-gray-100">RETURN</td>
-                            {columns.map((col, idx) => (
-                                <td key={idx} className="border border-black relative h-4">
-                                </td>
-                            ))}
-                        </tr>
-                        {/* BOTTOM LABELS */}
-                        {showBottomLabels && (
-                            <tr>
-                                <td className="border border-black bg-gray-100"></td>
-                                {columns.map((col, idx) => (
-                                    <td key={idx} className="border border-black font-bold bg-gray-100">{col}</td>
-                                ))}
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
+        return (
+            <UniversalTable
+                headerRows={[
+                    [
+                        {
+                            label: axis === 'X' || axis === 'Y' ? `${axis} AXIS` : `${axis} axis`,
+                            colSpan: columns.length + 1,
+                            className: 'bg-gray-200 font-bold'
+                        }
+                    ],
+                    [
+                        { label: 'mm', className: 'bg-gray-100 w-10' },
+                        ...columns.map(col => ({ label: col, className: 'bg-gray-100', width: '30%' }))
+                    ]
+                ]}
+                rows={rows}
+                measurements={measurements}
+                onMeasurementChange={handleMeasurementChange}
+            />
+        );
+    };
+
+    const renderSideInputs = (axis) => {
+        const fields = [
+            { label: 'POSITION MAX', id: `pitch_${axis.toLowerCase()}_position_max`, max: 40 },
+            { label: 'BACKLASH', id: `pitch_${axis.toLowerCase()}_backlash`, max: 1 },
+            { label: 'ERROR', id: `pitch_${axis.toLowerCase()}_error` },
+            { label: 'PITCH MASTER NO.', id: `pitch_${axis.toLowerCase()}_pitch_master_no` },
+            { label: 'DIAL GAUGE No.', id: `pitch_${axis.toLowerCase()}_dial_gauge_no` }
+        ];
+
+        return (
+            <div className="flex flex-col justify-end gap-1 pb-1">
+                {fields.map(field => (
+                    <div key={field.label} className="flex flex-col">
+                        <span className="text-[8px] whitespace-nowrap">{field.label}</span>
+                        <NumericKeypad
+                            value={measurements[field.id] || ''}
+                            onChange={(e) => handleMeasurementChange(field.id, e.target.value)}
+                            inputClassName="border-b border-black outline-none w-full text-[9px] h-4"
+                            max={field.max}
+                        />
+                    </div>
+                ))}
+            </div>
+        );
+    };
+
+    const renderSideInputsUV = (axis) => {
+        const fields = [
+            { label: 'POSITION MAX', id: `pitch_${axis.toLowerCase()}_pos_max`, max: 40 },
+            { label: 'BACKLASH', id: `pitch_${axis.toLowerCase()}_backlash`, max: 1 },
+            { label: 'ERROR', id: `pitch_${axis.toLowerCase()}_error` }
+        ];
+
+        return (
+            <div className="flex flex-col justify-end gap-1 pb-1">
+                {fields.map(field => (
+                    <div key={field.label} className="flex flex-col">
+                        <span className="text-[8px] whitespace-nowrap">{field.label}</span>
+                        <NumericKeypad
+                            value={measurements[field.id] || ''}
+                            onChange={(e) => handleMeasurementChange(field.id, e.target.value)}
+                            inputClassName="border-b border-black outline-none w-full text-[9px] h-4"
+                            max={field.max}
+                        />
+                    </div>
+                ))}
             </div>
         );
     };
@@ -98,40 +171,20 @@ function Page14() {
                     {/* X AXIS */}
                     <div className="flex-1 flex gap-1">
                         <div className="w-2/3">
-                            {renderPitchTable('X', [], 400, 20, 0, ['A', 'B', 'AB'])}
+                            {renderUniversalPitchTable('X', 400, 20, 0, ['A', 'B', 'AB'])}
                         </div>
-                        <div className="w-1/3 flex flex-col justify-end gap-1 pb-1">
-                            {['POSITION MAX', 'BACKLASH', 'ERROR', 'PITCH MASTER NO.', 'DIAL GAUGE No.'].map(label => (
-                                <div key={label} className="flex flex-col">
-                                    <span className="text-[8px] whitespace-nowrap">{label}</span>
-                                    <input
-                                        type="text"
-                                        className="border-b border-black outline-none w-full text-[9px] h-4"
-                                        value={measurements[`pitch_x_${label.toLowerCase().replace(/[\s.]/g, '_')}`] || ''}
-                                        onChange={(e) => handleMeasurementChange(`pitch_x_${label.toLowerCase().replace(/[\s.]/g, '_')}`, e.target.value)}
-                                    />
-                                </div>
-                            ))}
+                        <div className="w-1/3">
+                            {renderSideInputs('X')}
                         </div>
                     </div>
 
                     {/* Y AXIS */}
                     <div className="flex-1 flex gap-1">
                         <div className="w-2/3">
-                            {renderPitchTable('Y', [], 300, 20, 0, ['A', 'B', 'AB'])}
+                            {renderUniversalPitchTable('Y', 300, 20, 0, ['A', 'B', 'AB'])}
                         </div>
-                        <div className="w-1/3 flex flex-col justify-end gap-1 pb-1">
-                            {['POSITION MAX', 'BACKLASH', 'ERROR', 'PITCH MASTER NO.', 'DIAL GAUGE No.'].map(label => (
-                                <div key={label} className="flex flex-col">
-                                    <span className="text-[8px] whitespace-nowrap">{label}</span>
-                                    <input
-                                        type="text"
-                                        className="border-b border-black outline-none w-full text-[9px] h-4"
-                                        value={measurements[`pitch_y_${label.toLowerCase().replace(/[\s.]/g, '_')}`] || ''}
-                                        onChange={(e) => handleMeasurementChange(`pitch_y_${label.toLowerCase().replace(/[\s.]/g, '_')}`, e.target.value)}
-                                    />
-                                </div>
-                            ))}
+                        <div className="w-1/3">
+                            {renderSideInputs('Y')}
                         </div>
                     </div>
                 </div>
@@ -140,40 +193,22 @@ function Page14() {
 
                 <div className="flex gap-4 mb-2">
                     {/* U AXIS */}
-                    <div className="w-64">
-                        {renderPitchTable('U', [], 140, 20, 0, ['A', 'B', 'A - B'])}
-                        <div className="mt-1 space-y-1">
-                            <div className="flex items-center gap-1">
-                                <span className="w-20 text-[9px]">POSITION MAX :</span>
-                                <input className="border-b border-black flex-1 outline-none text-[9px] h-4" value={measurements['pitch_u_pos_max'] || ''} onChange={(e) => handleMeasurementChange('pitch_u_pos_max', e.target.value)} />
-                            </div>
-                            <div className="flex items-center gap-1">
-                                <span className="w-20 text-[9px]">BACKLASH :</span>
-                                <input className="border-b border-black flex-1 outline-none text-[9px] h-4" value={measurements['pitch_u_backlash'] || ''} onChange={(e) => handleMeasurementChange('pitch_u_backlash', e.target.value)} />
-                            </div>
-                            <div className="flex items-center gap-1">
-                                <span className="w-20 text-[9px]">ERROR :</span>
-                                <input className="border-b border-black flex-1 outline-none text-[9px] h-4" value={measurements['pitch_u_error'] || ''} onChange={(e) => handleMeasurementChange('pitch_u_error', e.target.value)} />
-                            </div>
+                    <div className="flex-1 flex gap-1">
+                        <div className="w-2/3">
+                            {renderUniversalPitchTable('U', 140, 20, 0, ['A', 'B', 'A - B'])}
+                        </div>
+                        <div className="w-1/3">
+                            {renderSideInputsUV('U')}
                         </div>
                     </div>
 
                     {/* V AXIS */}
-                    <div className="w-64">
-                        {renderPitchTable('V', [], 140, 20, 0, ['A', 'B', 'A - B'])}
-                        <div className="mt-1 space-y-1">
-                            <div className="flex items-center gap-1">
-                                <span className="w-20 text-[9px]">POSITION MAX :</span>
-                                <input className="border-b border-black flex-1 outline-none text-[9px] h-4" value={measurements['pitch_v_pos_max'] || ''} onChange={(e) => handleMeasurementChange('pitch_v_pos_max', e.target.value)} />
-                            </div>
-                            <div className="flex items-center gap-1">
-                                <span className="w-20 text-[9px]">BACKLASH :</span>
-                                <input className="border-b border-black flex-1 outline-none text-[9px] h-4" value={measurements['pitch_v_backlash'] || ''} onChange={(e) => handleMeasurementChange('pitch_v_backlash', e.target.value)} />
-                            </div>
-                            <div className="flex items-center gap-1">
-                                <span className="w-20 text-[9px]">ERROR :</span>
-                                <input className="border-b border-black flex-1 outline-none text-[9px] h-4" value={measurements['pitch_v_error'] || ''} onChange={(e) => handleMeasurementChange('pitch_v_error', e.target.value)} />
-                            </div>
+                    <div className="flex-1 flex gap-1">
+                        <div className="w-2/3">
+                            {renderUniversalPitchTable('V', 140, 20, 0, ['A', 'B', 'A - B'])}
+                        </div>
+                        <div className="w-1/3">
+                            {renderSideInputsUV('V')}
                         </div>
                     </div>
                 </div>
@@ -185,11 +220,19 @@ function Page14() {
                         <div className="flex gap-1">
                             <div className="flex items-center gap-1 flex-1">
                                 <span className="text-[9px]">DIAL GAUGE NO.</span>
-                                <input className="border-b border-black flex-1 outline-none text-[9px] h-4" value={measurements['pitch_uv_dial'] || ''} onChange={(e) => handleMeasurementChange('pitch_uv_dial', e.target.value)} />
+                                <NumericKeypad
+                                    value={measurements['pitch_uv_dial'] || ''}
+                                    onChange={(e) => handleMeasurementChange('pitch_uv_dial', e.target.value)}
+                                    inputClassName="border-b border-black flex-1 outline-none text-[9px] h-4"
+                                />
                             </div>
                             <div className="flex items-center gap-1 flex-1">
                                 <span className="text-[9px]">PITCH NO.</span>
-                                <input className="border-b border-black flex-1 outline-none text-[9px] h-4" value={measurements['pitch_uv_pitch_no'] || ''} onChange={(e) => handleMeasurementChange('pitch_uv_pitch_no', e.target.value)} />
+                                <NumericKeypad
+                                    value={measurements['pitch_uv_pitch_no'] || ''}
+                                    onChange={(e) => handleMeasurementChange('pitch_uv_pitch_no', e.target.value)}
+                                    inputClassName="border-b border-black flex-1 outline-none text-[9px] h-4"
+                                />
                             </div>
                         </div>
                     </div>

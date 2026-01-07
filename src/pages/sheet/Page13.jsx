@@ -2,6 +2,8 @@ import { useState } from 'react';
 import A4Paper from '../../components/A4Paper';
 import PageHeader from '../../components/PageHeader';
 import CheckedByDate from '../../components/CheckedByDate';
+import UniversalTable from '../../components/UniversalTable';
+import NumericKeypad from '../../components/NumericKeypad';
 
 /**
  * Page13 Component
@@ -11,9 +13,14 @@ import CheckedByDate from '../../components/CheckedByDate';
  */
 function Page13() {
     const [measurements, setMeasurements] = useState({});
+    const [approvals, setApprovals] = useState({});
 
     const handleMeasurementChange = (id, value) => {
         setMeasurements(prev => ({ ...prev, [id]: value }));
+    };
+
+    const handleApprovalChange = (id, value) => {
+        setApprovals(prev => ({ ...prev, [id]: value }));
     };
 
     return (
@@ -37,20 +44,18 @@ function Page13() {
                     <div className="absolute top-0 left-0">
                         <div className="flex items-center gap-1 mb-8">
                             <span>Data Shim V</span>
-                            <input
-                                type="text"
-                                className="border-b border-black w-16 text-center outline-none"
+                            <NumericKeypad
                                 value={measurements['data_shim_v_top'] || ''}
                                 onChange={(e) => handleMeasurementChange('data_shim_v_top', e.target.value)}
+                                inputClassName="border-b border-black w-16 text-center outline-none"
                             />
                             <span>mm.</span>
                         </div>
                         <div className="flex items-center gap-1 ml-20">
-                            <input
-                                type="text"
-                                className="border-b border-black w-16 text-center outline-none"
+                            <NumericKeypad
                                 value={measurements['data_shim_v_bottom'] || ''}
                                 onChange={(e) => handleMeasurementChange('data_shim_v_bottom', e.target.value)}
+                                inputClassName="border-b border-black w-16 text-center outline-none"
                             />
                             <span>mm.</span>
                         </div>
@@ -89,46 +94,42 @@ function Page13() {
                             {/* Table U */}
                             <div className="mb-2">
                                 <p className="mb-1 text-[10px] text-center">DATA STRAIGHTNESS U</p>
-                                <table className="w-full border-collapse border border-black text-center text-[10px]">
-                                    <tbody>
-                                        <tr>
-                                            <td className="border border-black bg-gray-100 w-10">Stroke (mm)</td>
-                                            <td className="border border-black w-8">140</td>
-                                            <td className="border border-black w-8">120</td>
-                                            <td className="border border-black w-8">100</td>
-                                            <td className="border border-black w-8">80</td>
-                                            <td className="border border-black w-8">60</td>
-                                            <td className="border border-black w-8">40</td>
-                                            <td className="border border-black w-8">20</td>
-                                            <td className="border border-black w-8">0</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="border border-black bg-gray-100">DATA</td>
-                                            <td className="border border-black">
-                                                <input type="text" className="w-full text-center outline-none bg-transparent" value={measurements['straight_u_140'] || ''} onChange={(e) => handleMeasurementChange('straight_u_140', e.target.value)} />
-                                            </td>
-                                            <td className="border border-black">
-                                                <input type="text" className="w-full text-center outline-none bg-transparent" value={measurements['straight_u_120'] || ''} onChange={(e) => handleMeasurementChange('straight_u_120', e.target.value)} />
-                                            </td>
-                                            <td className="border border-black">
-                                                <input type="text" className="w-full text-center outline-none bg-transparent" value={measurements['straight_u_100'] || ''} onChange={(e) => handleMeasurementChange('straight_u_100', e.target.value)} />
-                                            </td>
-                                            <td className="border border-black">
-                                                <input type="text" className="w-full text-center outline-none bg-transparent" value={measurements['straight_u_80'] || ''} onChange={(e) => handleMeasurementChange('straight_u_80', e.target.value)} />
-                                            </td>
-                                            <td className="border border-black">
-                                                <input type="text" className="w-full text-center outline-none bg-transparent" value={measurements['straight_u_60'] || ''} onChange={(e) => handleMeasurementChange('straight_u_60', e.target.value)} />
-                                            </td>
-                                            <td className="border border-black">
-                                                <input type="text" className="w-full text-center outline-none bg-transparent" value={measurements['straight_u_40'] || ''} onChange={(e) => handleMeasurementChange('straight_u_40', e.target.value)} />
-                                            </td>
-                                            <td className="border border-black">
-                                                <input type="text" className="w-full text-center outline-none bg-transparent" value={measurements['straight_u_20'] || ''} onChange={(e) => handleMeasurementChange('straight_u_20', e.target.value)} />
-                                            </td>
-                                            <td className="border border-black bg-gray-50">0</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <UniversalTable
+                                    headers={{
+                                        className: 'bg-gray-100',
+                                        label: '', // Custom headers logic
+                                    }}
+                                    headerRows={[
+                                        [
+                                            { label: 'Stroke (mm)', className: 'bg-gray-100 w-20' },
+                                            { label: '140', width: '32px' },
+                                            { label: '120', width: '32px' },
+                                            { label: '100', width: '32px' },
+                                            { label: '80', width: '32px' },
+                                            { label: '60', width: '32px' },
+                                            { label: '40', width: '32px' },
+                                            { label: '20', width: '32px' },
+                                            { label: '0', width: '32px' }
+                                        ]
+                                    ]}
+                                    rows={[
+                                        {
+                                            cells: [
+                                                { content: 'DATA', className: 'bg-gray-100' },
+                                                { type: 'input', id: 'straight_u_140' },
+                                                { type: 'input', id: 'straight_u_120' },
+                                                { type: 'input', id: 'straight_u_100' },
+                                                { type: 'input', id: 'straight_u_80' },
+                                                { type: 'input', id: 'straight_u_60' },
+                                                { type: 'input', id: 'straight_u_40' },
+                                                { type: 'input', id: 'straight_u_20' },
+                                                { content: '0', className: 'bg-gray-50' }
+                                            ]
+                                        }
+                                    ]}
+                                    measurements={measurements}
+                                    onMeasurementChange={handleMeasurementChange}
+                                />
                             </div>
 
                             <div className="mb-4">
@@ -156,20 +157,36 @@ function Page13() {
                                     </div>
                                     {/* Inputs around image */}
                                     <div className="absolute top-1/2 -translate-y-1/2 left-0 -ml-12 flex items-center">
-                                        <input type="text" className="w-10 border-b border-black text-center text-[10px] bg-white bg-opacity-80" value={measurements['spacer_u_left'] || ''} onChange={(e) => handleMeasurementChange('spacer_u_left', e.target.value)} />
+                                        <NumericKeypad
+                                            value={measurements['spacer_u_left'] || ''}
+                                            onChange={(e) => handleMeasurementChange('spacer_u_left', e.target.value)}
+                                            inputClassName="w-10 border-b border-black text-center text-[10px] bg-white bg-opacity-80"
+                                        />
                                         <span className="text-[10px] ml-1">mm.</span>
                                     </div>
                                     <div className="absolute top-1/2 -translate-y-1/2 right-0 -mr-12 flex items-center">
                                         <span className="text-[10px] mr-1">mm.</span>
-                                        <input type="text" className="w-10 border-b border-black text-center text-[10px] bg-white bg-opacity-80" value={measurements['spacer_u_right'] || ''} onChange={(e) => handleMeasurementChange('spacer_u_right', e.target.value)} />
+                                        <NumericKeypad
+                                            value={measurements['spacer_u_right'] || ''}
+                                            onChange={(e) => handleMeasurementChange('spacer_u_right', e.target.value)}
+                                            inputClassName="w-10 border-b border-black text-center text-[10px] bg-white bg-opacity-80"
+                                        />
                                     </div>
                                     <div className="absolute bottom-0 left-0 -ml-8 mb-2 flex items-center">
-                                        <input type="text" className="w-10 border-b border-black text-center text-[10px] bg-white bg-opacity-80" value={measurements['spacer_u_bottom_left'] || ''} onChange={(e) => handleMeasurementChange('spacer_u_bottom_left', e.target.value)} />
+                                        <NumericKeypad
+                                            value={measurements['spacer_u_bottom_left'] || ''}
+                                            onChange={(e) => handleMeasurementChange('spacer_u_bottom_left', e.target.value)}
+                                            inputClassName="w-10 border-b border-black text-center text-[10px] bg-white bg-opacity-80"
+                                        />
                                         <span className="text-[10px] ml-1">mm.</span>
                                     </div>
                                     <div className="absolute bottom-0 right-0 -mr-8 mb-2 flex items-center">
                                         <span className="text-[10px] mr-1">mm.</span>
-                                        <input type="text" className="w-10 border-b border-black text-center text-[10px] bg-white bg-opacity-80" value={measurements['spacer_u_bottom_right'] || ''} onChange={(e) => handleMeasurementChange('spacer_u_bottom_right', e.target.value)} />
+                                        <NumericKeypad
+                                            value={measurements['spacer_u_bottom_right'] || ''}
+                                            onChange={(e) => handleMeasurementChange('spacer_u_bottom_right', e.target.value)}
+                                            inputClassName="w-10 border-b border-black text-center text-[10px] bg-white bg-opacity-80"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -178,37 +195,26 @@ function Page13() {
                         {/* Right Side: V Check Table */}
                         <div className="w-40">
                             <p className="mb-1 text-[10px] text-center">DATA STRAIGHTNESS V</p>
-                            <table className="w-full border-collapse border border-black text-center text-[10px]">
-                                <thead>
-                                    <tr>
-                                        <th className="border border-black bg-gray-100 p-1">Stroke (mm)</th>
-                                        <th className="border border-black bg-gray-100 p-1">DATA</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td className="border border-black p-1">0</td>
-                                        <td className="border border-black p-1 bg-gray-50">0</td>
-                                    </tr>
-                                    {[20, 40, 60, 80, 100, 120].map(val => (
-                                        <tr key={val}>
-                                            <td className="border border-black p-1">{val}</td>
-                                            <td className="border border-black p-0">
-                                                <input
-                                                    type="text"
-                                                    className="w-full h-full text-center outline-none bg-transparent"
-                                                    value={measurements[`straight_v_${val}`] || ''}
-                                                    onChange={(e) => handleMeasurementChange(`straight_v_${val}`, e.target.value)}
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                    <tr>
-                                        <td className="border border-black p-1">140</td>
-                                        <td className="border border-black p-1 bg-gray-50">0</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <UniversalTable
+                                headerRows={[
+                                    [
+                                        { label: 'Stroke (mm)', className: 'bg-gray-100 p-1' },
+                                        { label: 'DATA', className: 'bg-gray-100 p-1' }
+                                    ]
+                                ]}
+                                rows={[
+                                    { cells: [{ content: '0' }, { content: '0', className: 'bg-gray-50' }] },
+                                    ...[20, 40, 60, 80, 100, 120].map(val => ({
+                                        cells: [
+                                            { content: val },
+                                            { type: 'input', id: `straight_v_${val}` }
+                                        ]
+                                    })),
+                                    { cells: [{ content: '140' }, { content: '0', className: 'bg-gray-50' }] }
+                                ]}
+                                measurements={measurements}
+                                onMeasurementChange={handleMeasurementChange}
+                            />
                         </div>
                     </div>
                 </div>
@@ -220,58 +226,64 @@ function Page13() {
 
                     <div className="flex gap-4">
                         <div className="flex-1">
-                            <table className="w-full border-collapse border border-black text-center text-[10px]">
-                                <thead>
-                                    <tr className="bg-gray-200">
-                                        <th className="border border-black p-1">Axis</th>
-                                        <th className="border border-black p-1">Position max<br />( µm. )</th>
-                                        <th className="border border-black p-1">Backlash<br />( µm. )</th>
-                                        <th className="border border-black p-1">Std. Backlash</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {['X', 'Y', 'U', 'V', 'Z'].map(axis => (
-                                        <tr key={axis}>
-                                            <td className="border border-black p-1 font-bold">{axis}</td>
-                                            <td className="border border-black p-0">
-                                                <input
-                                                    type="text"
-                                                    className="w-full h-full text-center outline-none bg-transparent"
-                                                    value={measurements[`laser_${axis}_pos`] || ''}
-                                                    onChange={(e) => handleMeasurementChange(`laser_${axis}_pos`, e.target.value)}
-                                                />
-                                            </td>
-                                            <td className="border border-black p-0">
-                                                <input
-                                                    type="text"
-                                                    className="w-full h-full text-center outline-none bg-transparent"
-                                                    value={measurements[`laser_${axis}_backlash`] || ''}
-                                                    onChange={(e) => handleMeasurementChange(`laser_${axis}_backlash`, e.target.value)}
-                                                />
-                                            </td>
-                                            <td className="border border-black p-1">
-                                                {axis === 'Z' ? '≤ 1 µm.' : '≤ 0.8 µm.'}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                    <tr>
-                                        <td className="border border-black p-1 text-left pl-2" colSpan={4}>Std. Position max ≤ 40 µm.</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="border border-black p-1 text-left pl-2" colSpan={4}>
-                                            <div className="flex items-center gap-2">
-                                                <span>Laser No.</span>
-                                                <input
-                                                    type="text"
-                                                    className="border-b border-black flex-1 outline-none"
-                                                    value={measurements['laser_no'] || ''}
-                                                    onChange={(e) => handleMeasurementChange('laser_no', e.target.value)}
-                                                />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <UniversalTable
+                                headerRows={[
+                                    [
+                                        { label: 'Axis', className: 'bg-gray-200 p-1' },
+                                        { label: 'Position max\n( µm. )', className: 'bg-gray-200 p-1' },
+                                        { label: 'Backlash\n( µm. )', className: 'bg-gray-200 p-1' },
+                                        { label: 'Std. Backlash', className: 'bg-gray-200 p-1' }
+                                    ]
+                                ]}
+                                rows={[
+                                    ...['X', 'Y', 'U', 'V', 'Z'].map(axis => ({
+                                        cells: [
+                                            { content: <b>{axis}</b>, className: 'p-1' },
+                                            {
+                                                type: 'input',
+                                                id: `laser_${axis}_pos`,
+                                                max: 40
+                                            },
+                                            {
+                                                type: 'input',
+                                                id: `laser_${axis}_backlash`,
+                                                max: axis === 'Z' ? 1 : 0.8
+                                            },
+                                            { content: axis === 'Z' ? '≤ 1 µm.' : '≤ 0.8 µm.', className: 'p-1' }
+                                        ]
+                                    })),
+                                    {
+                                        cells: [
+                                            {
+                                                content: 'Std. Position max ≤ 40 µm.',
+                                                colSpan: 4,
+                                                className: 'text-left pl-2 p-1'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        cells: [
+                                            {
+                                                content: (
+                                                    <div className="flex items-center gap-2">
+                                                        <span>Laser No.</span>
+                                                        <input
+                                                            type="text"
+                                                            className="border-b border-black flex-1 outline-none bg-transparent"
+                                                            value={measurements['laser_no'] || ''}
+                                                            onChange={(e) => handleMeasurementChange('laser_no', e.target.value)}
+                                                        />
+                                                    </div>
+                                                ),
+                                                colSpan: 4,
+                                                className: 'text-left pl-2 p-1'
+                                            }
+                                        ]
+                                    }
+                                ]}
+                                measurements={measurements}
+                                onMeasurementChange={handleMeasurementChange}
+                            />
                         </div>
 
                         <div className="flex-1 flex flex-col justify-between">

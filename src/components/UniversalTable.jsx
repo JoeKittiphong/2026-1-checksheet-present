@@ -126,11 +126,11 @@ function UniversalTable({
                                 return (
                                     <td
                                         key={cIdx}
-                                        className={`border border-black p-0 ${cellBg} align-middle relative h-[24px] ${cell.className || ''}`}
+                                        className={`border border-black p-0 ${cellBg} align-middle relative ${cell.className || ''}`}
                                         colSpan={cell.colSpan}
                                         rowSpan={cell.rowSpan}
                                     >
-                                        <div className="flex w-full h-full items-stretch min-h-[24px]">
+                                        <div className="flex w-full h-full items-stretch">
                                             <div className={`relative flex-1 h-full ${!isValid ? 'border-r border-black border-dashed w-1/2' : 'w-full'}`}>
                                                 <NumericKeypad
                                                     value={val}
