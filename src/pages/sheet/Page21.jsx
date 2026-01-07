@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import A4Paper from '../components/A4Paper';
-import PageHeader from '../components/PageHeader';
-import CheckedByDate from '../components/CheckedByDate';
-import DiagramImage from '../components/DiagramImage';
-import InspectionPoint from '../components/InspectionPoint';
+import A4Paper from '../../components/A4Paper';
+import PageHeader from '../../components/PageHeader';
+import CheckedByDate from '../../components/CheckedByDate';
+import DiagramImage from '../../components/DiagramImage';
+import InspectionPoint from '../../components/InspectionPoint';
 
 /**
  * Page21 Component

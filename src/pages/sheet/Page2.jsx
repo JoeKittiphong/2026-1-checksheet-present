@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import A4Paper from '../components/A4Paper';
-import PageHeader from '../components/PageHeader';
-import UniversalTable from '../components/UniversalTable';
-import CheckedByDate from '../components/CheckedByDate';
+import A4Paper from '../../components/A4Paper';
+import PageHeader from '../../components/PageHeader';
+import UniversalTable from '../../components/UniversalTable';
+import CheckedByDate from '../../components/CheckedByDate';
 
 /**
  * Page2 Component
@@ -65,8 +65,8 @@ function Page2() {
                                         cells: [
                                             { content: '1' },
                                             { content: '0-5 ↑' },
-                                            { type: 'input', id: 'y_akb_1', standard: '∞' },
-                                            { type: 'input', id: 'y_b_1', standard: '∞' },
+                                            { type: 'input', id: 'y_akb_1', min: 0, max: 5 },
+                                            { type: 'input', id: 'y_b_1', min: 0, max: 5 },
                                             { type: 'input', id: 'y_diff_1' }
                                         ]
                                     },

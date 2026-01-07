@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import A4Paper from '../components/A4Paper';
-import PageHeader from '../components/PageHeader';
-import AxisDiagram from '../components/AxisDiagram';
-import CheckedByDate from '../components/CheckedByDate';
+import A4Paper from '../../components/A4Paper';
+import PageHeader from '../../components/PageHeader';
+import AxisDiagram from '../../components/AxisDiagram';
+import CheckedByDate from '../../components/CheckedByDate';
 
 /**
  * Page11 Component

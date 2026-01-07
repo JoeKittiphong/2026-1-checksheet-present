@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import A4Paper from '../components/A4Paper';
-import TableHeader from '../components/TableHeader';
-import InfoInputForm from '../components/InfoInputForm';
-import SignBox from '../components/SignBox';
+import A4Paper from '../../components/A4Paper';
+import TableHeader from '../../components/TableHeader';
+import InfoInputForm from '../../components/InfoInputForm';
+import SignBox from '../../components/SignBox';
 
 /**
  * CoverPage Component

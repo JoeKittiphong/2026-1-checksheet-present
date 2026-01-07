@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import A4Paper from '../components/A4Paper';
-import PageHeader from '../components/PageHeader';
-import CheckedByDate from '../components/CheckedByDate';
-import SectionTitle from '../components/SectionTitle';
-import LabeledInput from '../components/LabeledInput';
-import DiagramImage from '../components/DiagramImage';
-import MeasurementInputRow from '../components/MeasurementInputRow';
-import CheckboxWithLabel from '../components/CheckboxWithLabel';
+import A4Paper from '../../components/A4Paper';
+import PageHeader from '../../components/PageHeader';
+import CheckedByDate from '../../components/CheckedByDate';
+import SectionTitle from '../../components/SectionTitle';
+import LabeledInput from '../../components/LabeledInput';
+import DiagramImage from '../../components/DiagramImage';
+import MeasurementInputRow from '../../components/MeasurementInputRow';
+import CheckboxWithLabel from '../../components/CheckboxWithLabel';
 
 /**
  * Page6 Component

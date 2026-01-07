@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import A4Paper from '../components/A4Paper';
-import PageHeader from '../components/PageHeader';
-import UniversalTable from '../components/UniversalTable';
-import CheckedByDate from '../components/CheckedByDate';
+import A4Paper from '../../components/A4Paper';
+import PageHeader from '../../components/PageHeader';
+import UniversalTable from '../../components/UniversalTable';
+import CheckedByDate from '../../components/CheckedByDate';
 
 /**
  * Page9 Component

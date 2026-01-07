@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import A4Paper from '../components/A4Paper';
-import PageHeader from '../components/PageHeader';
-import UniversalTable from '../components/UniversalTable';
-import CheckedByDate from '../components/CheckedByDate';
-import SectionTitle from '../components/SectionTitle';
-import LabeledInput from '../components/LabeledInput';
-import DiagramImage from '../components/DiagramImage';
+import A4Paper from '../../components/A4Paper';
+import PageHeader from '../../components/PageHeader';
+import UniversalTable from '../../components/UniversalTable';
+import CheckedByDate from '../../components/CheckedByDate';
+import SectionTitle from '../../components/SectionTitle';
+import LabeledInput from '../../components/LabeledInput';
+import DiagramImage from '../../components/DiagramImage';
 
 /**
  * Page1 Component
@@ -173,13 +173,13 @@ function Page1() {
                             {
                                 cells: [
                                     { content: 'A = Kb', className: 'bg-gray-200 font-bold text-left pl-1' },
-                                    { content: '' },
-                                    { content: '' },
-                                    { content: '0' },
-                                    { content: '' },
-                                    { content: '' },
-                                    { content: '' },
-                                    { content: '' }
+                                    {type:'input', id: 'p1_x_a_1', standard: '∞' },
+                                    {type:'input', id: 'p1_x_a_2', standard: '∞',},
+                                    {type:'input', id: 'p1_x_a_3', standard: '∞',},
+                                    {content: '0' },
+                                    {type:'input', id: 'p1_x_a_5', standard: '∞',},
+                                    {type:'input', id: 'p1_x_a_6', standard: '∞',},
+                                    {type:'input', id: 'p1_x_a_7', standard: '∞',}
                                 ]
                             }
                         ]}

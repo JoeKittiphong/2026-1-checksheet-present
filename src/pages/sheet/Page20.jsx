@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import A4Paper from '../components/A4Paper';
-import PageHeader from '../components/PageHeader';
-import CheckedByDate from '../components/CheckedByDate';
-import SectionTitle from '../components/SectionTitle';
-import DiagramImage from '../components/DiagramImage';
-import StdMeasurementBox from '../components/StdMeasurementBox';
-import LabeledInput from '../components/LabeledInput';
+import A4Paper from '../../components/A4Paper';
+import PageHeader from '../../components/PageHeader';
+import CheckedByDate from '../../components/CheckedByDate';
+import SectionTitle from '../../components/SectionTitle';
+import DiagramImage from '../../components/DiagramImage';
+import StdMeasurementBox from '../../components/StdMeasurementBox';
+import LabeledInput from '../../components/LabeledInput';
 
 /**
  * Page20 Component
